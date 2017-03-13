@@ -9,7 +9,7 @@ using namespace alx;
 
 
 // const float FPS = 60;
-const int SCREEN_W = 640;
+const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 // const int BOUNCER_SIZE = 32;
 
@@ -57,7 +57,10 @@ public:
     void draw() {
 
         // al_draw_rectangle(position.getX(), position.getY(), width+position.getX(), hight+position.getY(), sprite_color, 1);
-        al_draw_filled_rectangle(position.getX(), position.getY(), width+position.getX(), hight+position.getY(), sprite_color);
+        // al_draw_filled_rectangle(position.getX(), position.getY(), width+position.getX(), hight+position.getY(), sprite_color);
+
+        Point<int> _position = position - makePoint(width/2, hight/2);
+        al_draw_filled_rectangle(_position.getX(), _position.getY(), width+_position.getX(), hight+_position.getY(), sprite_color);
     
     }
 
@@ -95,10 +98,10 @@ public:
         // setRandomColor();
 
         //проверка на столкновение с краями
-        if (position.getX() >= SCREEN_W or position.getX() <=0)
+        if (position.getX() >= SCREEN_W-width/2 or position.getX() <=0)
             velocity.setX( -velocity.getX() );
 
-        if (position.getY() >= SCREEN_H or position.getY() <=0)
+        if (position.getY() >= SCREEN_H-hight/2 or position.getY() <=0)
             velocity.setY( -velocity.getY() );
 
         position += velocity;
@@ -131,11 +134,11 @@ public:
             // velocity.setX( -velocity.getX() );
 
 
-        if (position.getY()+velocity.getY() <= SCREEN_H-hight)
+        if (position.getY()+velocity.getY() <= SCREEN_H-hight/2)
             // velocity.setY( -velocity.getY() );
             position.setY( position.getY()+velocity.getY() ) ;
         else
-            position.setY( SCREEN_H-hight );
+            position.setY( SCREEN_H-hight/2 );
     }
 
     void move_up() {
@@ -144,11 +147,23 @@ public:
         // if (position.getX() >= SCREEN_W or position.getX() <=0)
             // velocity.setX( -velocity.getX() );
 
-        if (position.getY()-velocity.getY() >= 1)
+        if (position.getY()-velocity.getY() >= 1+hight/2)
             // velocity.setY( -velocity.getY() );
             position.setY( position.getY()-velocity.getY() ) ;
         else
-            position.setY( 1 );
+            position.setY( 1+hight/2 );
+    }
+
+
+
+    void autoCatch(Point<int> point){
+
+        if (position.getY() > point.getY())
+            move_up();
+        else if (position.getY() < point.getY())
+            move_down();
+
+
     }
 
 
@@ -196,10 +211,21 @@ int main(int argc, char **argv){
 
     Ball ball( makePoint(SCREEN_W/2, SCREEN_H/2), hight, width );
     ball.velocity = makePoint(1, 1);
-    ball.sprite_color = al_map_rgb(255, 0, 0);
+    // ball.sprite_color = al_map_rgb(255, 0, 0);
 
+    // Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25, 150 );
     Board myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), 25, 150 );
     myBoard.velocity = makePoint(5, 5);
+    
+
+
+
+    Board evilBoard( makePoint( 75 , SCREEN_H/2), 25, 150 );
+    // evilBoard.velocity = makePoint(5, 5); //Багает при этом значении
+    evilBoard.velocity = makePoint(1, 1);
+
+
+
 
     // cout << ball.position.getX() << endl;
     // cout << ball.position.getY() << endl;
@@ -234,15 +260,19 @@ int main(int argc, char **argv){
             al_clear_to_color( clr1 );
 
             ball.draw();
-            ball.fly();
 
             myBoard.draw();
+
+            evilBoard.draw();
+            // evilBoard.position.setY( ball.position.getY() );
 
 
             al_flip_display();
 
             redraw = false;
         }
+            ball.fly();
+            evilBoard.autoCatch( ball.position );
 
 
         //wait for event
