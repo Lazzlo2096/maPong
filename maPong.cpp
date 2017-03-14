@@ -7,6 +7,7 @@
 using namespace std;
 using namespace alx;
 
+#define PI 3.14159
 
 // const float FPS = 60;
 const int SCREEN_W = 640*1.25;
@@ -29,6 +30,9 @@ public:
 
     // Bitmap bitmap;
 
+    // ALLEGRO_COLOR sprite_color = al_map_rgb(255, 0, 0);
+    ALLEGRO_COLOR sprite_color = al_map_rgb(255, 255, 255);
+
 
     /*Sprite(const Point<int> &pos, const Bitmap &bmp) : position(pos), bitmap(bmp) {
     }
@@ -37,11 +41,14 @@ public:
     void draw() const {
         bitmap.draw(position.getX(), position.getY());
     }
-
+*/
+    
     //get rect
     Rect<int> getRect() const {
-        return Rect<int>(position, bitmap.getSize());
-    }*/
+
+        Point<int> _position = - makePoint(width/2, hight/2) + position;
+        return Rect<int>(_position, makeSize(width, hight));
+    }
 
     Sprite(const Point<int> &pos, int _width, int _hight) : position(pos), hight(_hight), width(_width) {
     }
@@ -50,19 +57,20 @@ public:
     }
 
 
-    // ALLEGRO_COLOR sprite_color = al_map_rgb(255, 0, 0);
-    ALLEGRO_COLOR sprite_color = al_map_rgb(255, 255, 255);
-
-
     void draw() {
 
         // al_draw_rectangle(position.getX(), position.getY(), width+position.getX(), hight+position.getY(), sprite_color, 1);
         // al_draw_filled_rectangle(position.getX(), position.getY(), width+position.getX(), hight+position.getY(), sprite_color);
 
         Point<int> _position = position - makePoint(width/2, hight/2);
+        // Point<int> _position = position ;
         al_draw_filled_rectangle(_position.getX(), _position.getY(), width+_position.getX(), hight+_position.getY(), sprite_color);
     
     }
+
+    // hitTest(const Sprite& sprite){ // getRect() ?? 
+    // }
+    
 
 
 };
@@ -98,16 +106,32 @@ public:
         // setRandomColor();
 
         //проверка на столкновение с краями
-        if (position.getX() >= SCREEN_W-width/2 or position.getX() <=0)
+        if (position.getX() >= SCREEN_W-width/2 or position.getX() <= 0+width/2)
             velocity.setX( -velocity.getX() );
 
-        if (position.getY() >= SCREEN_H-hight/2 or position.getY() <=0)
+        if (position.getY() >= SCREEN_H-hight/2 or position.getY() <= 0+hight/2)
             velocity.setY( -velocity.getY() );
 
         position += velocity;
     }
 
+    //check collision between two sprites
+    // bool collision(const Sprite& obj) {
+    void collision(const Sprite& obj) {
+        
+        // if( getRect().intersects(obj.getRect()) ){
+        if( abs(position.getX()-obj.position.getX()) == width/2+obj.width/2  and (abs(position.getY()-obj.position.getY()) < hight/2+obj.hight/2 ) )
+        {
+            setRandomColor();
+                // velocity.setX( -abs(velocity.getX()+1.5) ); //Баги, баги, эти баги ВЕЗДЕ!
+                velocity.setX( velocity.getX() ); 
+        }
+        else if( abs(position.getY()-obj.position.getY()) == hight/2+obj.hight/2  and (abs(position.getX()-obj.position.getX()) < width/2+obj.width/2 ) )
+            velocity.setY( -velocity.getY() );
+        // else
 
+
+    }
     
 };
 
@@ -273,6 +297,9 @@ int main(int argc, char **argv){
         }
             ball.fly();
             evilBoard.autoCatch( ball.position );
+
+            ball.collision( myBoard );
+            ball.collision( evilBoard );
 
 
         //wait for event
