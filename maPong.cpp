@@ -2,6 +2,9 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 
+// #include <allegro5/allegro_font.h>
+// #include <allegro5/allegro_ttf.h>
+
 #include "alx.hpp"
 
 using namespace std;
@@ -12,6 +15,34 @@ using namespace alx;
 const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 // const int BOUNCER_SIZE = 32;
+
+void drawBackground(){
+
+	ALLEGRO_COLOR color = al_map_rgb(255, 255, 255);
+	ALLEGRO_COLOR color_score = al_map_rgb(255, 255, 255);
+
+	//draw score
+	/*al_draw_text(const ALLEGRO_FONT *font,
+		color_score,
+		0,
+		0,
+		 int flags,
+		"char const *text");*/
+
+
+	//draw outline
+	int hi_line = 20;
+	int wi_line = 10;
+	int gap = 10;
+	for ( int hi = 0; hi < SCREEN_H ; hi+=gap+hi_line){
+		al_draw_filled_rectangle(
+				SCREEN_W/2, 
+				0+hi, 
+				SCREEN_W/2 + wi_line, 
+				hi_line+hi, 
+				color );
+	}
+}
 
 
 //a sprite class
@@ -210,6 +241,9 @@ int main(int argc, char **argv){
 
 	al_init();
 	al_install_keyboard();
+	
+	// al_init_font_addon(); // initialize the font addon
+   // al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
 
 	Display display(SCREEN_W, SCREEN_H);
@@ -281,7 +315,14 @@ int main(int argc, char **argv){
 		1 );*/
 
 
-	
+
+	/*ALLEGRO_FONT *font = al_load_ttf_font("DejaVuSans.ttf",10,0 );
+	// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
+	if (!font){
+      fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
+      return -1;
+   }*/
+
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	event_queue = al_create_event_queue();
  
@@ -303,6 +344,9 @@ int main(int argc, char **argv){
 		if (redraw && eventQueue.isEmpty()) {
 				
 			al_clear_to_color( clr1 );
+			drawBackground();
+			// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
+				//ALLEGRO_ALIGN_CENTRE, "Your Text Here!");
 
 			ball.draw();
 

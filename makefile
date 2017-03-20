@@ -1,2 +1,4 @@
 All:
-	g++ -I ./ALX-master/include/ ./maPong.cpp -lallegro -lallegro_primitives -lallegro_image -lallegro_dialog  -std=c++11 -o maPong
+	g++ -I ./ALX/include/ ./maPong.cpp -lallegro -lallegro_primitives -std=c++11 -o maPong
+	#-lallegro_image -lallegro_dialog
+	#-lallegro_font -lallegro_ttf
