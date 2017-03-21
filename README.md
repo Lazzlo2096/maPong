@@ -40,6 +40,10 @@ make install
 npm test
 ``` -->
 
+## Дополнительные материалы
+
+Шрифт ``04B_03__.TTF`` был скачан [отсюда](http://dsg4.com/04/extra/bitmap/)
+
 ## Release History
 
 <!-- * 0.2.1
@@ -48,12 +52,12 @@ npm test
     * CHANGE: Remove `setDefaultXYZ()`
     * ADD: Add `init()`
 * 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
+    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!) -->
 * 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()` -->
+    * Первый годный релиз
+    * Реализован основной функционал игры
 * 0.0.1
-    * Work in progress
+    * Сырой прототип
 
 ## Meta
 

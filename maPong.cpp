@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <string>
 #include <allegro5/allegro.h>
 
 // #include <allegro5/allegro_font.h>
@@ -16,18 +17,41 @@ const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 // const int BOUNCER_SIZE = 32;
 
+ALLEGRO_FONT *font;
+
+int yourScore = 0;
+int evilScore = 0;
+
 void drawBackground(){
 
-	ALLEGRO_COLOR color = al_map_rgb(255, 255, 255);
+	ALLEGRO_COLOR color_line = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR color_score = al_map_rgb(255, 255, 255);
 
-	//draw score
-	/*al_draw_text(const ALLEGRO_FONT *font,
+
+
+	int interval = 50;
+	int indentation = 10;
+
+	al_draw_text(
+		font,
 		color_score,
-		0,
-		0,
-		 int flags,
-		"char const *text");*/
+		SCREEN_W/2 + interval,
+		0+indentation,
+		ALLEGRO_ALIGN_CENTRE,
+		to_string(yourScore).c_str()
+	);
+
+	al_draw_text(
+		font,
+		color_score,
+		SCREEN_W/2 - interval,
+		0+indentation,
+		ALLEGRO_ALIGN_CENTRE,
+		to_string(evilScore).c_str()
+	);
+
+	// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
+				// ALLEGRO_ALIGN_CENTRE, score.c_str());
 
 
 	//draw outline
@@ -36,11 +60,11 @@ void drawBackground(){
 	int gap = 10;
 	for ( int hi = 0; hi < SCREEN_H ; hi+=gap+hi_line){
 		al_draw_filled_rectangle(
-				SCREEN_W/2, 
+				SCREEN_W/2 - wi_line/2, 
 				0+hi, 
-				SCREEN_W/2 + wi_line, 
+				SCREEN_W/2 + wi_line/2, 
 				hi_line+hi, 
-				color );
+				color_line );
 	}
 }
 
@@ -138,15 +162,29 @@ public:
 
 
 	void fly() {
+	/*
+	Проверка на столкновение с краями идеёт после прибавления к координатам скорости.
+	Это может вызвать глюк, когда отталкивание
+	совершаеться за стенами, при большом velocity.
+	*/
 
 		// setRandomColor();
 
 		//проверка на столкновение с краями
-		if (position.getX() >= SCREEN_W-width/2 or position.getX() <= 0+width/2)
-			velocity.setX( -velocity.getX() );
 
-		if (position.getY() >= SCREEN_H-hight/2 or position.getY() <= 0+hight/2)
+		if (position.getY() <= 0+hight/2 or position.getY() >= SCREEN_H-hight/2)
 			velocity.setY( -velocity.getY() );
+
+		if (position.getX() >= SCREEN_W-width/2){
+			position = makePoint(SCREEN_W/2, SCREEN_H/2);
+			evilScore++;
+		}
+
+		if (position.getX() <= 0+width/2){
+			position = makePoint(SCREEN_W/2, SCREEN_H/2);
+			yourScore++;
+		}
+
 
 		position += velocity;
 	}
@@ -159,7 +197,7 @@ public:
 		if( abs(position.getX()-obj.position.getX()) == width/2+obj.width/2 and
 			(abs(position.getY()-obj.position.getY()) < hight/2+obj.hight/2 ) )
 		{
-			setRandomColor();
+			// setRandomColor();
 			//Баги, баги, эти баги ВЕЗДЕ!
 			// velocity.setX( -abs(velocity.getX()+1.5) ); 
 			velocity.setX( -velocity.getX() ); 
@@ -242,8 +280,8 @@ int main(int argc, char **argv){
 	al_init();
 	al_install_keyboard();
 	
-	// al_init_font_addon(); // initialize the font addon
-   // al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+	al_init_font_addon(); // initialize the font addon
+	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
 
 	Display display(SCREEN_W, SCREEN_H);
@@ -316,12 +354,13 @@ int main(int argc, char **argv){
 
 
 
-	/*ALLEGRO_FONT *font = al_load_ttf_font("DejaVuSans.ttf",10,0 );
+	// font = al_load_ttf_font("Smirnof.ttf",72,0 );
+	font = al_load_ttf_font("04B_03__.TTF",72,0 );
 	// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
 	if (!font){
       fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
       return -1;
-   }*/
+   }
 
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	event_queue = al_create_event_queue();
@@ -345,8 +384,8 @@ int main(int argc, char **argv){
 				
 			al_clear_to_color( clr1 );
 			drawBackground();
-			// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
-				//ALLEGRO_ALIGN_CENTRE, "Your Text Here!");
+
+
 
 			ball.draw();
 
