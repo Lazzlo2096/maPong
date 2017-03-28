@@ -12,7 +12,7 @@ using namespace std;
 using namespace alx;
 
 
-// const float FPS = 60;
+const float FPS = 60;
 const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 // const int BOUNCER_SIZE = 32;
@@ -27,7 +27,9 @@ void drawBackground(){
 	ALLEGRO_COLOR color_line = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR color_score = al_map_rgb(255, 255, 255);
 
-
+	// Color background_color(40,40,40);
+	// al_clear_to_color( background_color );
+	al_clear_to_color( al_map_rgb(40,40,40) ); //заливка фона в цвет RGB
 
 	int interval = 50;
 	int indentation = 10;
@@ -289,7 +291,7 @@ int main(int argc, char **argv){
 
 	//--------------
 	EventQueue eventQueue;
-	Timer timer(1./60);
+	Timer timer(1./FPS);
 	UserEventSource ues;
 
 	//bind the resources to the event queue
@@ -298,30 +300,16 @@ int main(int argc, char **argv){
 	//--------------
 
 
-	// al_clear_to_color(al_map_rgb(40,40,40)); //Цвет фона
-	Color clr1(40,40,40);
-	
-
-
-
-
-
-
-
-
-
-	
-
 	float hight = 25;
 	float width = 25;
-
 
 
 	Ball ball( makePoint(SCREEN_W/2, SCREEN_H/2), hight, width );
 	ball.velocity = makePoint(1, 1);
 	// ball.sprite_color = al_map_rgb(255, 0, 0);
 
-	// Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25, 150 );
+	/*Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
+	 150 );*/
 	Board myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), 25, 150 );
 	myBoard.velocity = makePoint(5, 5);
 	
@@ -381,30 +369,25 @@ int main(int argc, char **argv){
 
 		// if( al_is_event_queue_empty(event_queue)) {
 		if (redraw && eventQueue.isEmpty()) {
-				
-			al_clear_to_color( clr1 );
+
 			drawBackground();
 
-
-
 			ball.draw();
-
 			myBoard.draw();
-
 			evilBoard.draw();
-			// evilBoard.position.setY( ball.position.getY() );
 
+			//-------
+			ball.fly();
+			ball.collision( myBoard );
+			ball.collision( evilBoard );
+
+			evilBoard.autoCatch( ball.position );
+			//-------
 
 			al_flip_display();
 
 			redraw = false;
 		}
-
-		ball.fly();
-		evilBoard.autoCatch( ball.position );
-
-		ball.collision( myBoard );
-		ball.collision( evilBoard );
 
 
 		//wait for event
@@ -443,12 +426,14 @@ int main(int argc, char **argv){
 
 			//mouse
 			/*case ALLEGRO_EVENT_MOUSE_AXES:
-					paddle.position.setX(std::max(0, std::min(event.getMouseX() - 
+					paddle.position.setX(std::max(0, 
+						std::min(event.getMouseX() - 
 						paddle.bitmap.getWidth()/2, display.getWidth() - 
 						paddle.bitmap.getWidth())));
 					if (ball.velocity == Point<int>(0, 0)) {
 							ball.position.setX(paddle.position.getX() + 
-								paddle.bitmap.getWidth()/2 - ball.bitmap.getWidth()/2);
+								paddle.bitmap.getWidth()/2 - 
+								ball.bitmap.getWidth()/2);
 					}
 					break;
 
@@ -466,7 +451,7 @@ int main(int argc, char **argv){
 			case ALLEGRO_EVENT_TIMER:
 				if (event.getTimer() == timer) {
 					redraw = true;
-					// updateLogic(); //?????????????????????????????????????????????
+					// updateLogic(); //???????????????????????????????????
 				}
 				break;
 
