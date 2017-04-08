@@ -74,8 +74,7 @@ void drawBackground(){
 //a sprite class
 class Sprite {
 
-public:
-
+protected:
 
 	int hight;
 	int width;
@@ -88,6 +87,22 @@ public:
 
 	// ALLEGRO_COLOR sprite_color = al_map_rgb(255, 0, 0);
 	ALLEGRO_COLOR sprite_color = al_map_rgb(255, 255, 255);
+
+public:
+
+	Point<int> getPosition() const { return position; } /*const метод т.к.
+	юзаеться вконст obj в методе Ball::colision*/
+	void setPosition(Point<int> _position){ position = _position; }
+
+	Point<int> getVelocity(){ return velocity; }
+	void setVelocity(Point<int> _velocity){ velocity = _velocity; }
+
+	ALLEGRO_COLOR getSprite_color(){ return sprite_color; }
+	void setSprite_color(ALLEGRO_COLOR _sprite_color){ sprite_color = _sprite_color; }
+
+
+	int getHight() const { return hight; }
+	int getWidth() const { return width; }
 
 
 	/*Sprite(const Point<int> &pos, const Bitmap &bmp) 
@@ -155,7 +170,7 @@ public:
 	void setRandomColor(){
 
 		int i = color;
-		sprite_color = al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0));
+		setSprite_color( al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0)) );
 
 		color++;
 
@@ -196,8 +211,8 @@ public:
 	void collision(const Sprite& obj) {
 		
 		// if( getRect().intersects(obj.getRect()) ){
-		if( abs(position.getX()-obj.position.getX()) == width/2+obj.width/2 and
-			(abs(position.getY()-obj.position.getY()) < hight/2+obj.hight/2 ) )
+		if( abs(position.getX()-obj.getPosition().getX()) == width/2+obj.getWidth()/2 and
+			(abs(position.getY()-obj.getPosition().getY()) < hight/2+obj.getHight()/2 ) )
 		{
 			// setRandomColor();
 			//Баги, баги, эти баги ВЕЗДЕ!
@@ -205,12 +220,11 @@ public:
 			velocity.setX( -velocity.getX() ); 
 		}
 		else if( 
-			abs(position.getY()-obj.position.getY()) == hight/2+obj.hight/2  and
-			(abs(position.getX()-obj.position.getX()) < width/2+obj.width/2 ) 
+			abs(position.getY()-obj.getPosition().getY()) == hight/2+obj.getHight()/2  and
+			(abs(position.getX()-obj.getPosition().getX()) < width/2+obj.getWidth()/2 ) 
 			)
 			velocity.setY( -velocity.getY() );
 		// else
-
 
 	}
 		
@@ -305,20 +319,20 @@ int main(int argc, char **argv){
 
 
 	Ball ball( makePoint(SCREEN_W/2, SCREEN_H/2), hight, width );
-	ball.velocity = makePoint(1, 1);
+	ball.setVelocity( makePoint(1, 1) );
 	// ball.sprite_color = al_map_rgb(255, 0, 0);
 
 	/*Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
 	 150 );*/
 	Board myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), 25, 150 );
-	myBoard.velocity = makePoint(5, 5);
+	myBoard.setVelocity( makePoint(5, 5) );
 	
 
 
 
 	Board evilBoard( makePoint( 75 , SCREEN_H/2), 25, 150 );
-	// evilBoard.velocity = makePoint(5, 5); //Багает при этом значении
-	evilBoard.velocity = makePoint(1, 1);
+	// evilBoard.velocity() = makePoint(5, 5); //Багает при этом значении
+	evilBoard.setVelocity( makePoint(1, 1) );
 
 
 
@@ -381,7 +395,7 @@ int main(int argc, char **argv){
 			ball.collision( myBoard );
 			ball.collision( evilBoard );
 
-			evilBoard.autoCatch( ball.position );
+			evilBoard.autoCatch( ball.getPosition() );
 			//-------
 
 			al_flip_display();
