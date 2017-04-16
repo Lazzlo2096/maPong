@@ -76,8 +76,8 @@ class Sprite {
 
 protected:
 
-	int hight;
 	int width;
+	int hight;
 
 	Point<int> position;
 
@@ -91,13 +91,13 @@ protected:
 public:
 
 	Point<int> getPosition() const { return position; } /*const метод т.к.
-	юзаеться вконст obj в методе Ball::colision*/
-	void setPosition(Point<int> _position){ position = _position; }
+	юзаеться в конст obj в методе Ball::colision*/
+	//void setPosition(Point<int> _position){ position = _position; }
 
-	Point<int> getVelocity(){ return velocity; }
+	//Point<int> getVelocity(){ return velocity; }
 	void setVelocity(Point<int> _velocity){ velocity = _velocity; }
 
-	ALLEGRO_COLOR getSprite_color(){ return sprite_color; }
+	//ALLEGRO_COLOR getSprite_color(){ return sprite_color; }
 	void setSprite_color(ALLEGRO_COLOR _sprite_color){ sprite_color = _sprite_color; }
 
 
@@ -123,11 +123,11 @@ public:
 	}
 
 	Sprite(const Point<int> &pos, int _width, int _hight) : 
-		position(pos), hight(_hight), width(_width) {
+		position(pos), width(_width), hight(_hight) {
 	}
 
-	Sprite(const Point<int> &pos) : position(pos) {
-	}
+	//Sprite(const Point<int> &pos) : position(pos) {
+	//}
 
 
 	void draw() {
@@ -364,8 +364,8 @@ int main(int argc, char **argv){
       return -1;
    }
 
-	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-	event_queue = al_create_event_queue();
+	//ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	//event_queue = al_create_event_queue();
  
 	//event loop
 	timer.start();
