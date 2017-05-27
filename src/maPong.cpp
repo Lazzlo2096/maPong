@@ -357,7 +357,7 @@ int main(int argc, char **argv){
 
 
 	// font = al_load_ttf_font("Smirnof.ttf",72,0 );
-	font = al_load_ttf_font("04B_03__.TTF",72,0 );
+	font = al_load_ttf_font("./data/04B_03__.TTF",72,0 );
 	// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
 	if (!font){
       fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
