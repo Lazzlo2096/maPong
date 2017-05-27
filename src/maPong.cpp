@@ -8,21 +8,21 @@
 
 #include "alx.hpp"
 
+// #include "Sprite.h"
+#include "PingPong.h"
+
 using namespace std;
 using namespace alx;
-
-
-const float FPS = 60;
-const int SCREEN_W = 640*1.25;
-const int SCREEN_H = 480;
-// const int BOUNCER_SIZE = 32;
-
-ALLEGRO_FONT *font;
 
 int yourScore = 0;
 int evilScore = 0;
 
-void drawBackground(){
+const float FPS = 60;
+// const int BOUNCER_SIZE = 32;
+
+ALLEGRO_FONT *font;
+
+void drawPingPongBackground(){
 
 	ALLEGRO_COLOR color_line = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR color_score = al_map_rgb(255, 255, 255);
@@ -70,226 +70,10 @@ void drawBackground(){
 	}
 }
 
+class mainScene{
 
-//a sprite class
-class Sprite {
-
-protected:
-
-	int width;
-	int hight;
-
-	Point<int> position;
-
-	Point<int> velocity;
-
-	// Bitmap bitmap;
-
-	// ALLEGRO_COLOR sprite_color = al_map_rgb(255, 0, 0);
-	ALLEGRO_COLOR sprite_color = al_map_rgb(255, 255, 255);
-
-public:
-
-	Point<int> getPosition() const { return position; } /*const метод т.к.
-	юзаеться в конст obj в методе Ball::colision*/
-	//void setPosition(Point<int> _position){ position = _position; }
-
-	//Point<int> getVelocity(){ return velocity; }
-	void setVelocity(Point<int> _velocity){ velocity = _velocity; }
-
-	//ALLEGRO_COLOR getSprite_color(){ return sprite_color; }
-	void setSprite_color(ALLEGRO_COLOR _sprite_color){ sprite_color = _sprite_color; }
-
-
-	int getHight() const { return hight; }
-	int getWidth() const { return width; }
-
-
-	/*Sprite(const Point<int> &pos, const Bitmap &bmp) 
-		: position(pos), bitmap(bmp) {
-	}
-
-	//draws the bitmap
-	void draw() const {
-			bitmap.draw(position.getX(), position.getY());
-	}
-*/
 	
-	//get rect
-	Rect<int> getRect() const {
-
-		Point<int> _position = - makePoint(width/2, hight/2) + position;
-		return Rect<int>(_position, makeSize(width, hight));
-	}
-
-	Sprite(const Point<int> &pos, int _width, int _hight) : 
-		position(pos), width(_width), hight(_hight) {
-	}
-
-	//Sprite(const Point<int> &pos) : position(pos) {
-	//}
-
-
-	void draw() {
-
-		Point<int> _position = position - makePoint(width/2, hight/2);
-		// Point<int> _position = position ;
-
-		// al_draw_rectangle(
-		al_draw_filled_rectangle(
-			_position.getX(), 
-			_position.getY(), 
-			width+_position.getX(), 
-			hight+_position.getY(), 
-			sprite_color );
-
-	}
-
-	// hitTest(const Sprite& sprite){ // getRect() ?? 
-	// }
-	
-
-
 };
-
-class Ball : public Sprite
-{
-
-	int color = 0;
-public:
-
-
-
-	// Ball();
-	~Ball(){};
-
-	Ball(const Point<int> &pos, int _width, int _hight) 
-		: Sprite(pos, _width, _hight) {}
-
-
-	void setRandomColor(){
-
-		int i = color;
-		setSprite_color( al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0)) );
-
-		color++;
-
-	}
-
-
-
-	void fly() {
-	/*
-	Проверка на столкновение с краями идеёт после прибавления к координатам скорости.
-	Это может вызвать глюк, когда отталкивание
-	совершаеться за стенами, при большом velocity.
-	*/
-
-		// setRandomColor();
-
-		//проверка на столкновение с краями
-
-		if (position.getY() <= 0+hight/2 or position.getY() >= SCREEN_H-hight/2)
-			velocity.setY( -velocity.getY() );
-
-		if (position.getX() >= SCREEN_W-width/2){
-			position = makePoint(SCREEN_W/2, SCREEN_H/2);
-			evilScore++;
-		}
-
-		if (position.getX() <= 0+width/2){
-			position = makePoint(SCREEN_W/2, SCREEN_H/2);
-			yourScore++;
-		}
-
-
-		position += velocity;
-	}
-
-	//check collision between two sprites
-	// bool collision(const Sprite& obj) {
-	void collision(const Sprite& obj) {
-		
-		// if( getRect().intersects(obj.getRect()) ){
-		if( abs(position.getX()-obj.getPosition().getX()) == width/2+obj.getWidth()/2 and
-			(abs(position.getY()-obj.getPosition().getY()) < hight/2+obj.getHight()/2 ) )
-		{
-			// setRandomColor();
-			//Баги, баги, эти баги ВЕЗДЕ!
-			// velocity.setX( -abs(velocity.getX()+1.5) ); 
-			velocity.setX( -velocity.getX() ); 
-		}
-		else if( 
-			abs(position.getY()-obj.getPosition().getY()) == hight/2+obj.getHight()/2  and
-			(abs(position.getX()-obj.getPosition().getX()) < width/2+obj.getWidth()/2 ) 
-			)
-			velocity.setY( -velocity.getY() );
-		// else
-
-	}
-		
-};
-
-
-class Board : public Sprite
-{
-public:
-
-
-
-	// Board();
-	~Board(){};
-
-	Board(const Point<int> &pos, int _width, int _hight) 
-		: Sprite(pos, _width, _hight) {
-	}
-
-
-
-
-	void move_down() {
-
-		//проверка на столкновение с краями
-		// if (position.getX() >= SCREEN_W or position.getX() <=0)
-			// velocity.setX( -velocity.getX() );
-
-
-		if (position.getY()+velocity.getY() <= SCREEN_H-hight/2)
-			// velocity.setY( -velocity.getY() );
-			position.setY( position.getY()+velocity.getY() ) ;
-		else
-			position.setY( SCREEN_H-hight/2 );
-	}
-
-	void move_up() {
-
-		//проверка на столкновение с краями
-		// if (position.getX() >= SCREEN_W or position.getX() <=0)
-			// velocity.setX( -velocity.getX() );
-
-		if (position.getY()-velocity.getY() >= 1+hight/2)
-			// velocity.setY( -velocity.getY() );
-			position.setY( position.getY()-velocity.getY() ) ;
-		else
-			position.setY( 1+hight/2 );
-	}
-
-
-
-	void autoCatch(Point<int> point){
-
-		if (position.getY() > point.getY())
-			move_up();
-		else if (position.getY() < point.getY())
-			move_down();
-
-
-	}
-
-
-		
-};
-
 
 int main(int argc, char **argv){
 
@@ -360,7 +144,7 @@ int main(int argc, char **argv){
 	font = al_load_ttf_font("./data/04B_03__.TTF",72,0 );
 	// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
 	if (!font){
-      fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
+      fprintf(stderr, "Could not load './data/04B_03__.TTF'.\n");
       return -1;
    }
 
@@ -384,7 +168,8 @@ int main(int argc, char **argv){
 		// if( al_is_event_queue_empty(event_queue)) {
 		if (redraw && eventQueue.isEmpty()) {
 
-			drawBackground();
+			//==============
+			drawPingPongBackground();
 
 			ball.draw();
 			myBoard.draw();
@@ -397,6 +182,7 @@ int main(int argc, char **argv){
 
 			evilBoard.autoCatch( ball.getPosition() );
 			//-------
+			//==============
 
 			al_flip_display();
 
