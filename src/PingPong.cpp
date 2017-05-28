@@ -4,9 +4,11 @@
 // Ball();
 Ball::~Ball(){};
 
-Ball::Ball(const Point<int> &pos, int _width, int _hight) 
+Ball::Ball(Point<int> pos, int _width, int _hight) 
 	: Sprite(pos, _width, _hight) {} ;
 
+Ball::Ball(int pos_x, int pos_y, int _width, int _hight) 
+	: Sprite(Point<int>(pos_x, pos_y), _width, _hight) {} ;
 
 void Ball::setRandomColor(){
 

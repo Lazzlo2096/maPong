@@ -27,7 +27,8 @@ public:
 	// Ball();
 	~Ball();
 
-	Ball(const Point<int> &pos, int _width, int _hight);
+	Ball(Point<int> pos, int _width, int _hight);
+	Ball(int pos_x, int pos_y, int _width, int _hight);
 
 	void setRandomColor();
 

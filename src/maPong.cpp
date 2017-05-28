@@ -20,9 +20,7 @@ int evilScore = 0;
 const float FPS = 60;
 // const int BOUNCER_SIZE = 32;
 
-ALLEGRO_FONT *font;
-
-void drawPingPongBackground(){
+void drawPingPongBackground(ALLEGRO_FONT *font){
 
 	ALLEGRO_COLOR color_line = al_map_rgb(255, 255, 255);
 	ALLEGRO_COLOR color_score = al_map_rgb(255, 255, 255);
@@ -55,7 +53,6 @@ void drawPingPongBackground(){
 	// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
 				// ALLEGRO_ALIGN_CENTRE, score.c_str());
 
-
 	//draw outline
 	int hi_line = 20;
 	int wi_line = 10;
@@ -72,7 +69,68 @@ void drawPingPongBackground(){
 
 class mainScene{
 
-	
+	const float board_hight = 25;
+	const float board_width = 150;
+
+	Ball ball;
+	// ball.sprite_color = al_map_rgb(255, 0, 0);
+
+	/*Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
+	 150 );*/
+	Board myBoard;
+
+	Board evilBoard;
+
+	ALLEGRO_FONT *font;
+
+public:
+
+	mainScene():
+		ball( makePoint(SCREEN_W/2, SCREEN_H/2), 25, 25 ),
+		myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), board_hight, board_width ),
+		evilBoard( makePoint( 75 , SCREEN_H/2), board_hight, board_width )	
+	{
+
+		// font = al_load_ttf_font("Smirnof.ttf",72,0 );
+		font = al_load_ttf_font("./data/04B_03__.TTF",72,0 );
+		// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
+		if (!font){
+      		fprintf(stderr, "Could not load './data/04B_03__.TTF'.\n");
+     		 //return -1;
+   		}
+	};
+
+	~mainScene(){};
+
+	void onInit(){
+
+		ball.setVelocity( makePoint(1, 1) );
+		myBoard.setVelocity( makePoint(5, 5) );
+		// evilBoard.velocity() = makePoint(5, 5); //Багает при этом значении
+		evilBoard.setVelocity( makePoint(1, 1) );
+
+	};
+
+	void onRun(){
+
+		drawPingPongBackground(font);
+
+		ball.draw();
+		myBoard.draw();
+		evilBoard.draw();
+
+		//-------
+		ball.fly();
+		ball.collision( myBoard );
+		ball.collision( evilBoard );
+
+		evilBoard.autoCatch( ball.getPosition() );
+		//-------
+
+	}
+
+	void onKeyDown(){ myBoard.move_down(); }
+	void onKeyUp(){ myBoard.move_up(); }
 };
 
 int main(int argc, char **argv){
@@ -98,26 +156,8 @@ int main(int argc, char **argv){
 	//--------------
 
 
-	float hight = 25;
-	float width = 25;
-
-
-	Ball ball( makePoint(SCREEN_W/2, SCREEN_H/2), hight, width );
-	ball.setVelocity( makePoint(1, 1) );
-	// ball.sprite_color = al_map_rgb(255, 0, 0);
-
-	/*Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
-	 150 );*/
-	Board myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), 25, 150 );
-	myBoard.setVelocity( makePoint(5, 5) );
-	
-
-
-
-	Board evilBoard( makePoint( 75 , SCREEN_H/2), 25, 150 );
-	// evilBoard.velocity() = makePoint(5, 5); //Багает при этом значении
-	evilBoard.setVelocity( makePoint(1, 1) );
-
+	mainScene myMainScene;
+	myMainScene.onInit();
 
 
 
@@ -140,13 +180,7 @@ int main(int argc, char **argv){
 
 
 
-	// font = al_load_ttf_font("Smirnof.ttf",72,0 );
-	font = al_load_ttf_font("./data/04B_03__.TTF",72,0 );
-	// ALLEGRO_FONT *font = al_load_bitmap_font("a4_font.tga");
-	if (!font){
-      fprintf(stderr, "Could not load './data/04B_03__.TTF'.\n");
-      return -1;
-   }
+
 
 	//ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	//event_queue = al_create_event_queue();
@@ -168,21 +202,7 @@ int main(int argc, char **argv){
 		// if( al_is_event_queue_empty(event_queue)) {
 		if (redraw && eventQueue.isEmpty()) {
 
-			//==============
-			drawPingPongBackground();
-
-			ball.draw();
-			myBoard.draw();
-			evilBoard.draw();
-
-			//-------
-			ball.fly();
-			ball.collision( myBoard );
-			ball.collision( evilBoard );
-
-			evilBoard.autoCatch( ball.getPosition() );
-			//-------
-			//==============
+			myMainScene.onRun();
 
 			al_flip_display();
 
@@ -215,11 +235,11 @@ int main(int argc, char **argv){
 
 
 					case ALLEGRO_KEY_DOWN :
-							myBoard.move_down();
+							myMainScene.onKeyDown();
 						break;
 
 					case ALLEGRO_KEY_UP :
-							myBoard.move_up();
+							myMainScene.onKeyUp();
 						break;
 				}
 				break;
