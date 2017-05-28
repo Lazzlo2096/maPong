@@ -12,14 +12,11 @@
 using namespace std;
 using namespace alx;
 
-
 const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 
-
 extern int yourScore;
 extern int evilScore;
-
 
 class Sprite {
 
@@ -32,12 +29,13 @@ protected:
 
 	Point<int> velocity;
 
-	// Bitmap bitmap;
-
-	// ALLEGRO_COLOR sprite_color = al_map_rgb(255, 0, 0);
-	ALLEGRO_COLOR sprite_color = al_map_rgb(255, 255, 255);
-
 public:
+
+	Sprite(const Point<int> &pos, int _width, int _hight);
+	//Sprite(const Point<int> &pos) : position(pos) {
+	//}
+
+	virtual ~Sprite();
 
 	Point<int> getPosition() const;/*const метод т.к.
 	юзаеться в конст obj в методе Ball::colision*/
@@ -46,13 +44,8 @@ public:
 	//Point<int> getVelocity(){ return velocity; }
 	void setVelocity(Point<int> _velocity);
 
-	//ALLEGRO_COLOR getSprite_color(){ return sprite_color; }
-	void setSprite_color(ALLEGRO_COLOR _sprite_color);
-
-
 	int getHight() const;
 	int getWidth() const;
-
 
 	/*Sprite(const Point<int> &pos, const Bitmap &bmp) 
 		: position(pos), bitmap(bmp) {
@@ -63,21 +56,13 @@ public:
 			bitmap.draw(position.getX(), position.getY());
 	}
 */
-	
+
 	//get rect
 	Rect<int> getRect() const;
 
-	Sprite(const Point<int> &pos, int _width, int _hight);
-
-	//Sprite(const Point<int> &pos) : position(pos) {
-	//}
-
-
-	void draw();
+	virtual void draw() = 0;
 
 	// hitTest(const Sprite& sprite){ // getRect() ?? 
 	// }
 	
-
-
 };

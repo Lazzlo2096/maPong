@@ -5,15 +5,15 @@
 Ball::~Ball(){};
 
 Ball::Ball(Point<int> pos, int _width, int _hight) 
-	: Sprite(pos, _width, _hight) {} ;
+	: Rectangle(pos, _width, _hight) {} ;
 
-Ball::Ball(int pos_x, int pos_y, int _width, int _hight) 
-	: Sprite(Point<int>(pos_x, pos_y), _width, _hight) {} ;
-
+/*Ball::Ball(int pos_x, int pos_y, int _width, int _hight) 
+	: Rectangle(Point<int>(pos_x, pos_y), _width, _hight) {} ;
+*/
 void Ball::setRandomColor(){
 
 	int i = color;
-	setSprite_color( al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0)) );
+	setRectangle_color( al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0)) );
 
 	color++;
 
@@ -77,7 +77,7 @@ void Ball::collision(const Sprite& obj) {
 Board::~Board(){};
 
 Board::Board(const Point<int> &pos, int _width, int _hight) 
-	: Sprite(pos, _width, _hight) {
+	: Rectangle(pos, _width, _hight) {
 }
 
 

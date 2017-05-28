@@ -7,7 +7,7 @@
 // #include <allegro5/allegro_font.h>
 // #include <allegro5/allegro_ttf.h>
 
-#include "Sprite.h"
+#include "Rectangle.h"
 
 #include "alx.hpp"
 
@@ -17,7 +17,7 @@ using namespace alx;
 
 
 
-class Ball : public Sprite
+class Ball : public Rectangle
 {
 	int color = 0;
 
@@ -28,7 +28,7 @@ public:
 	~Ball();
 
 	Ball(Point<int> pos, int _width, int _hight);
-	Ball(int pos_x, int pos_y, int _width, int _hight);
+	// Ball(int pos_x, int pos_y, int _width, int _hight);
 
 	void setRandomColor();
 
@@ -47,7 +47,7 @@ public:
 };
 
 
-class Board : public Sprite
+class Board : public Rectangle
 {
 public:
 
