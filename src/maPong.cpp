@@ -67,6 +67,13 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 	}
 }
 
+
+class Menu(){
+
+
+
+};
+
 class mainScene{
 
 	const float board_hight = 25;
@@ -83,12 +90,14 @@ class mainScene{
 
 	ALLEGRO_FONT *font;
 
+	Menu mainMenu;
+
 public:
 
 	mainScene():
 		ball( makePoint(SCREEN_W/2, SCREEN_H/2), 25, 25 ),
 		myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), board_hight, board_width ),
-		evilBoard( makePoint( 75 , SCREEN_H/2), board_hight, board_width )	
+		evilBoard( makePoint( 75 , SCREEN_H/2), board_hight, board_width )
 	{
 
 		// font = al_load_ttf_font("Smirnof.ttf",72,0 );
@@ -127,6 +136,25 @@ public:
 		evilBoard.autoCatch( ball.getPosition() );
 		//-------
 
+		//---------------------------
+		//Menu
+
+
+		auto drawShadesBackground = [](){
+			al_draw_filled_rectangle(
+				0, 
+				0, 
+				SCREEN_W, 
+				SCREEN_H, 
+				al_map_rgba_f(0.f, 0.f, 0.f, 0.45f));
+		};
+
+
+		// mainMenu.drawMenu();
+
+		drawShadesBackground();
+
+		//------------------------------
 	}
 
 	void onKeyDown(){ myBoard.move_down(); }
