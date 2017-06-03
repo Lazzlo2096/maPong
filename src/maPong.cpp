@@ -68,9 +68,71 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 }
 
 
-class Menu(){
+class Menu
+{
+	const int MENU_WIDTH = 200;
+	// MENU_HEIGHT = 200;
+	const int MENU_ITEM_HEIGHT = 40;
+	const int MENU_PADDING = 10;
+
+	Point<int> menuPlace;
+
+	vector<string> menu_items;
+
+	int menuItemsNum; //= menu_items.size(); // size() трудоёмкий метод
+
+public:
+	Menu(){
+		menu_items.push_back("New Game");
+		menu_items.push_back("Online game");
+		menu_items.push_back("Exit");
+
+		menuItemsNum = menu_items.size(); // size() трудоёмкий метод
+
+		menuPlace = makePoint(
+				SCREEN_W/2-MENU_WIDTH/2,
+				SCREEN_H/2-(MENU_PADDING+(MENU_ITEM_HEIGHT)*menuItemsNum)
+			);
+	};
+
+	void drawMenu(){
+
+		auto drawShadesBackground = [](){
+			al_draw_filled_rectangle(
+				0, 
+				0, 
+				SCREEN_W, 
+				SCREEN_H, 
+				al_map_rgba_f(0.f, 0.f, 0.f, 0.45f));
+		};
+
+		drawShadesBackground();
 
 
+
+		// cout << menuItemsNum << endl;
+
+		ALLEGRO_COLOR menu_color = al_map_rgba_f(0.f, 0.f, 0.f, 1.f);
+		ALLEGRO_COLOR item_color = al_map_rgba_f(1.f, 1.f, 1.f, 1.f);
+
+		al_draw_filled_rectangle(
+			menuPlace.getX(), 
+			menuPlace.getY(), 
+			menuPlace.getX()+MENU_WIDTH, 
+			menuPlace.getY()+MENU_PADDING+(MENU_ITEM_HEIGHT)*menuItemsNum, 
+			menu_color
+		);
+
+		for(int i=0; i!=menuItemsNum; i++ )
+			// cout << i << endl;
+			al_draw_filled_rectangle(
+				menuPlace.getX()+MENU_PADDING,
+				menuPlace.getY()+MENU_PADDING+MENU_ITEM_HEIGHT*i, 
+				menuPlace.getX()+MENU_WIDTH-MENU_PADDING, 
+				menuPlace.getY()+MENU_ITEM_HEIGHT+MENU_ITEM_HEIGHT*i, 
+				item_color
+			);
+	};
 
 };
 
@@ -136,25 +198,9 @@ public:
 		evilBoard.autoCatch( ball.getPosition() );
 		//-------
 
-		//---------------------------
 		//Menu
-
-
-		auto drawShadesBackground = [](){
-			al_draw_filled_rectangle(
-				0, 
-				0, 
-				SCREEN_W, 
-				SCREEN_H, 
-				al_map_rgba_f(0.f, 0.f, 0.f, 0.45f));
-		};
-
-
 		// mainMenu.drawMenu();
 
-		drawShadesBackground();
-
-		//------------------------------
 	}
 
 	void onKeyDown(){ myBoard.move_down(); }
