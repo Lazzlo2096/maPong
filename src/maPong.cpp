@@ -83,7 +83,7 @@ class Menu
 
 public:
 	Menu(){
-		menu_items.push_back("New Game");
+		menu_items.push_back("New game");
 		menu_items.push_back("Online game");
 		menu_items.push_back("Exit");
 
@@ -108,12 +108,11 @@ public:
 
 		drawShadesBackground();
 
-
-
 		// cout << menuItemsNum << endl;
 
 		ALLEGRO_COLOR menu_color = al_map_rgba_f(0.f, 0.f, 0.f, 1.f);
 		ALLEGRO_COLOR item_color = al_map_rgba_f(1.f, 1.f, 1.f, 1.f);
+		ALLEGRO_COLOR menu_font_color = al_map_rgba_f(0.f, 0.f, 0.f, 1.f);
 
 		al_draw_filled_rectangle(
 			menuPlace.getX(), 
@@ -123,7 +122,9 @@ public:
 			menu_color
 		);
 
-		for(int i=0; i!=menuItemsNum; i++ )
+		ALLEGRO_FONT *font = al_load_ttf_font("./data/04B_03__.TTF",30,0 );
+
+		for(int i=0; i!=menuItemsNum; i++ ){
 			// cout << i << endl;
 			al_draw_filled_rectangle(
 				menuPlace.getX()+MENU_PADDING,
@@ -132,6 +133,16 @@ public:
 				menuPlace.getY()+MENU_ITEM_HEIGHT+MENU_ITEM_HEIGHT*i, 
 				item_color
 			);
+
+			al_draw_text(
+				font,
+				menu_font_color,
+				menuPlace.getX()+MENU_PADDING+MENU_WIDTH/2,
+				menuPlace.getY()+MENU_PADDING+MENU_ITEM_HEIGHT*i,
+				ALLEGRO_ALIGN_CENTRE,
+				menu_items[i].c_str()
+			);
+		}
 	};
 
 };
@@ -199,7 +210,7 @@ public:
 		//-------
 
 		//Menu
-		// mainMenu.drawMenu();
+		mainMenu.drawMenu();
 
 	}
 
