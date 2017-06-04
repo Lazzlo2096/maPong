@@ -8,6 +8,7 @@
 
 #include "alx.hpp"
 
+#include "./server/helpPage.h" //struct EnpPoint, parseArgs()
 // #include "Sprite.h"
 #include "PingPong.h"
 
@@ -135,6 +136,8 @@ public:
 
 int main(int argc, char **argv){
 
+	struct EnpPoint ep = parseArgs(argc, argv);
+	
 	al_init();
 	al_install_keyboard();
 	

@@ -26,7 +26,7 @@ main(){
 		sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);
 
 			cout<< "receive..." << endl;
-			cout.write(send_bufta(), len_buf); // Почему не работает?!?!
+			cout.write(send_buf.data(), len_buf); // Почему не работает?!?!
 
     	sk.send_to(boost::asio::buffer(send_buf), receiver_endpoint);
 
