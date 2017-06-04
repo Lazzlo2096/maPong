@@ -6,9 +6,9 @@ namespace po = boost::program_options;
 
 struct EnpPoint
 {
-	bool isServerOrClient; //=false;
-	std::string address;// = "";
-	int port;// = 0;
+	bool isServerOrClient =false;
+	std::string address = "";
+	int port = 0;
 };
 
 struct EnpPoint parseArgs(int ac, char *av[] ){
