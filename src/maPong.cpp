@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <allegro5/allegro.h>
@@ -15,7 +14,7 @@ using namespace std;
 using namespace alx;
 
 int yourScore = 0;
-int evilScore = 0;
+int enemyScore = 0;
 
 const float FPS = 60;
 // const int BOUNCER_SIZE = 32;
@@ -47,7 +46,7 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 		SCREEN_W/2 - interval,
 		0+indentation,
 		ALLEGRO_ALIGN_CENTRE,
-		to_string(evilScore).c_str()
+		to_string(enemyScore).c_str()
 	);
 
 	// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
@@ -149,7 +148,7 @@ public:
 
 class mainScene{
 
-	const float board_hight = 25;
+	const float board_height = 25;
 	const float board_width = 150;
 
 	Ball ball;
@@ -159,7 +158,7 @@ class mainScene{
 	 150 );*/
 	Board myBoard;
 
-	Board evilBoard;
+	Board enemyBoard;
 
 	ALLEGRO_FONT *font;
 
@@ -169,8 +168,8 @@ public:
 
 	mainScene():
 		ball( makePoint(SCREEN_W/2, SCREEN_H/2), 25, 25 ),
-		myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), board_hight, board_width ),
-		evilBoard( makePoint( 75 , SCREEN_H/2), board_hight, board_width )
+		myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), board_height, board_width ),
+		enemyBoard( makePoint( 75 , SCREEN_H/2), board_height, board_width )	
 	{
 
 		// font = al_load_ttf_font("Smirnof.ttf",72,0 );
@@ -188,8 +187,8 @@ public:
 
 		ball.setVelocity( makePoint(1, 1) );
 		myBoard.setVelocity( makePoint(5, 5) );
-		// evilBoard.velocity() = makePoint(5, 5); //Багает при этом значении
-		evilBoard.setVelocity( makePoint(1, 1) );
+		// enemyBoard.velocity() = makePoint(5, 5); //Багает при этом значении
+		enemyBoard.setVelocity( makePoint(1, 1) );
 
 	};
 
@@ -199,14 +198,14 @@ public:
 
 		ball.draw();
 		myBoard.draw();
-		evilBoard.draw();
+		enemyBoard.draw();
 
 		//-------
 		ball.fly();
 		ball.collision( myBoard );
-		ball.collision( evilBoard );
+		ball.collision( enemyBoard );
 
-		evilBoard.autoCatch( ball.getPosition() );
+		enemyBoard.autoCatch( ball.getPosition() );
 		//-------
 
 		//Menu
@@ -258,7 +257,7 @@ int main(int argc, char **argv){
 	/*al_draw_rectangle(
 		offset, 
 		offset, 
-		hight+offset, 
+		height+offset, 
 		width+offset, 
 		color_orange,
 		1 );*/
