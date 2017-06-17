@@ -137,6 +137,25 @@ public:
 int main(int argc, char **argv){
 
 	struct EnpPoint ep = parseArgs(argc, argv);
+
+	if (ep.port != 0)
+	{
+		//Значит работает как сервер или клиент, а не как одиночная игра
+
+		if (ep.address != "")
+		{
+			//Значит работает как сервер
+			cout << "=> Runing as server at port" << ep.port << endl;
+			static Server server(ep.port);
+		}
+		else
+		{
+			//Значит работает как клиент
+			cout << "=> Runing as client at adress "<< ep.address << " and port" << ep.port << endl;
+			static Client client(ep.address, ep.port);
+		}
+
+	}
 	
 	al_init();
 	al_install_keyboard();

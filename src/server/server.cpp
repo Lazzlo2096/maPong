@@ -2,64 +2,30 @@
 #include <string>
 #include <boost/asio.hpp>
 
-using namespace std;
-using namespace boost::asio;
+#include "server.h"
 
-boost::array<char, 128> send_buf; // = {0}; мусор
-		//string send_buf  = "Hello world!";
+Server::Server(int port):
+	ep(boost::asio::ip::udp::v4(), port),
+	sk(io, ep)
+{};
 
-class server
+void Server::connect()
 {
-public:
-	server():
-		ep(ip::udp::v4(), 9090),
-		sk(io, ep)
-	{};
-	// ~server();
-
-	void connect(){
-
-		size_t len_buf = 
-			sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);
-				
-	};
-
-	void run(){
-
-		size_t len_buf = 
-			sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);
-
-		cout<< "receive..." << endl;
-		cout.write(send_buf.data(), len_buf); // Почему не работает?!?! работает но не с первого раза
-
-		sk.send_to(boost::asio::buffer(send_buf), receiver_endpoint);
-
-		// cout << send_buf << endl; 
-
-		//buffer(send_buf)
-
-	};
-	
-private:
-	io_service io;
-	
-	ip::udp::endpoint ep;
-	
-	ip::udp::socket sk;
-
-	ip::udp::endpoint receiver_endpoint /*= *resolver.resolve(query)*/;
+	size_t len_buf = 
+		sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);		
 };
 
-main(){
+void Server::run()
+{
+	size_t len_buf = 
+		sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);
 
-	server myServer;
+	cout<< "receive..." << endl;
+	cout.write(send_buf.data(), len_buf); // Почему не работает?!?! работает но не с первого раза
 
-	myServer.connect();
+	sk.send_to(boost::asio::buffer(send_buf), receiver_endpoint);
 
-	while(true){
+	// cout << send_buf << endl; 
 
-		myServer.run();
-		
-	}
-
-}
+	//buffer(send_buf)
+};

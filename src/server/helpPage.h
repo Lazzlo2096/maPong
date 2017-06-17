@@ -6,12 +6,14 @@ namespace po = boost::program_options;
 
 struct EnpPoint
 {
-	bool isServerOrClient =false;
+	//bool isServerOrClient = false;
+
 	std::string address = "";
 	int port = 0;
 };
 
-struct EnpPoint parseArgs(int ac, char *av[] ){
+struct EnpPoint parseArgs(int ac, char *av[] )
+{
 
 	// Declare the supported options.
 	po::options_description desc("Allowed options");
@@ -61,7 +63,6 @@ struct EnpPoint parseArgs(int ac, char *av[] ){
 	}
 
 	// try {
-
 
 	// } catch ( const std::exception& e ) {
 		// std::cerr << e.what() << std::endl;
