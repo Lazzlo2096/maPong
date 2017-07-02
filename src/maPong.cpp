@@ -144,10 +144,10 @@ int main(int argc, char **argv){
 	{
 		//Значит работает как сервер или клиент, а не как одиночная игра
 
-		if (ep.address != "")
+		if (ep.address == "")
 		{
 			//Значит работает как сервер
-			cout << "=> Runing as server at port" << ep.port << endl;
+			cout << "=> Runing as server at port " << ep.port << endl;
 			static Server server(ep.port);
 
 			server.connect();
@@ -155,7 +155,7 @@ int main(int argc, char **argv){
 		else
 		{
 			//Значит работает как клиент
-			cout << "=> Runing as client at adress "<< ep.address << " and port" << ep.port << endl;
+			cout << "=> Runing as client at address "<< ep.address << " and port " << ep.port << endl;
 			static Client client(ep.address, ep.port);
 
 			client.connect();
