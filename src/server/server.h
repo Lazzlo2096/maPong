@@ -1,12 +1,10 @@
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
+#include <boost/array.hpp>
 
 //using namespace std;
 //using namespace boost::asio;
-
-boost::array<char, 128> send_buf; // = {0}; мусор
-		//string send_buf  = "Hello world!";
 
 class Server
 {

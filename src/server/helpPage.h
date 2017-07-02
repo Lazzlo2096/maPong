@@ -39,7 +39,7 @@ struct EnpPoint parseArgs(int ac, char *av[] )
 	if (vm.count("server"))
 	{
 		std::cout << "Заущен как сервер" << ".\n";
-		ep.isServerOrClient = true;
+		//ep.isServerOrClient = true;
 		
 		if (vm.count("port"))
 			int port = vm["port"].as<int>();
@@ -52,7 +52,7 @@ struct EnpPoint parseArgs(int ac, char *av[] )
 	{
 		std::cout << "Заущен как клиент, подключённый по адрессу " << vm["client"].as<std::string>() << ".\n";
 		std::string address = vm["client"].as<std::string>();
-		ep.isServerOrClient = true;
+		//ep.isServerOrClient = true;
 		
 		if (vm.count("port"))
 			int port = vm["port"].as<int>();

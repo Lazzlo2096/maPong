@@ -3,7 +3,7 @@
 
 #include "client.h"
 
-Client::Client(string address, int port):
+Client::Client(std::string address, int port):
 	ep(boost::asio::ip::address::from_string(address), port),
 	sk(io)
 {
@@ -13,10 +13,12 @@ Client::Client(string address, int port):
 
 void Client::connect()
 {
-	string send_buf  = "initial send!\0";
+	std::string send_buf  = "initial send!\0";
 	// size_t len_buf = 
 		// sk.receive_from(boost::asio::buffer(send_buf), receiver_endpoint);
+	std::cout << "=> сейчас будет подключен к серверу" << std::endl;
 	sk.send_to( boost::asio::buffer(send_buf,12), ep);
+	std::cout << "=> подключен к серверу" << std::endl;
 			
 };
 
@@ -27,7 +29,7 @@ void Client::run()
 
 void Client::send()
 {
-	string send_buf  = "Hello world!\0";
+	std::string send_buf  = "Hello world!\0";
 	sk.send_to( boost::asio::buffer(send_buf,12), ep);
 
 };

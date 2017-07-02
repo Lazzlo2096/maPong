@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string>
 #include <boost/asio.hpp>
+#include <boost/array.hpp>
 
 // using namespace std;
 // using namespace boost::asio;
@@ -7,7 +9,7 @@
 class Client
 {
 public:
-	Client(string address, int port);
+	Client(std::string address, int port);
 	// ~Client();
 
 	void connect();

@@ -9,6 +9,8 @@
 #include "alx.hpp"
 
 #include "./server/helpPage.h" //struct EnpPoint, parseArgs()
+#include "./server/server.h"
+#include "./server/client.h"
 // #include "Sprite.h"
 #include "PingPong.h"
 
@@ -147,12 +149,16 @@ int main(int argc, char **argv){
 			//Значит работает как сервер
 			cout << "=> Runing as server at port" << ep.port << endl;
 			static Server server(ep.port);
+
+			server.connect();
 		}
 		else
 		{
 			//Значит работает как клиент
 			cout << "=> Runing as client at adress "<< ep.address << " and port" << ep.port << endl;
 			static Client client(ep.address, ep.port);
+
+			client.connect();
 		}
 
 	}
