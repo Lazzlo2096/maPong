@@ -1,17 +1,18 @@
 # MaPong
-> Простая игра
+> Just 4 FUN
 
 <!-- [![NPM Version][npm-image]][npm-url] -->
 <!-- [![Build Status][travis-image]][travis-url] -->
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
-Ping-pong игра на Allegro 5 с использованием [ALX](https://github.com/axilmar/ALX) (C++11 Allegro 5 wrapper library)
+Ping-pong игра на движке Allegro 5 с использованием [ALX](https://github.com/axilmar/ALX) (C++11 Allegro 5 wrapper library)
+Скоро ~~со вкусом банана~~ будет возможна игра по сети.
 
 ![](maPong_screenshot.png)
 
 ## Installation
 
-Linux:
+###Linux:
 
 ```sh
 sudo apt install liballegro5-dev
@@ -21,11 +22,17 @@ git clone https://github.com/axilmar/ALX.git
 make
 ```
 
-<!-- Windows:
+###Windows:
+
+Для начала, вам нужно установить Allegro 5.0.10 в ваш MinGW [отсюда](https://www.allegro.cc/files/?v=5.0). [(типа инструкция)](https://www.allegro.cc/forums/thread/611687)
+Затем:
 
 ```sh
-edit autoexec.bat
-``` -->
+git clone https://github.com/Lazzlo2096/maPong.git
+cd maPong
+git clone https://github.com/axilmar/ALX.git
+make windows
+```
 
 <!-- ## Usage example
 

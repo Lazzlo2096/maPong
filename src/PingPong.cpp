@@ -37,7 +37,7 @@ void Ball::fly() {
 
 	if (position.getX() >= SCREEN_W-width/2){
 		position = makePoint(SCREEN_W/2, SCREEN_H/2);
-		evilScore++;
+		enemyScore++;
 	}
 
 	if (position.getX() <= 0+width/2){
