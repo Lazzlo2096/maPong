@@ -6,14 +6,13 @@
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
 Ping-pong игра на движке Allegro 5 с использованием [ALX](https://github.com/axilmar/ALX) (C++11 Allegro 5 wrapper library)
-Скоро ~~со вкусом банана~~ будет возможна игра по сети.
+<br>Скоро ~~со вкусом банана~~ будет возможна игра по сети
 
 ![](maPong_screenshot.png)
 
 ## Installation
 
-###Linux:
-
+### Linux:
 ```sh
 sudo apt install liballegro5-dev
 git clone https://github.com/Lazzlo2096/maPong.git
@@ -22,10 +21,9 @@ git clone https://github.com/axilmar/ALX.git
 make
 ```
 
-###Windows:
-
+### Windows:
 Для начала, вам нужно установить Allegro 5.0.10 в ваш MinGW [отсюда](https://www.allegro.cc/files/?v=5.0). [(типа инструкция)](https://www.allegro.cc/forums/thread/611687)
-Затем:
+<br>Затем:
 
 ```sh
 git clone https://github.com/Lazzlo2096/maPong.git
