@@ -143,7 +143,6 @@ public:
 			);
 		}
 	};
-
 };
 
 class mainScene{
@@ -189,7 +188,6 @@ public:
 		myBoard.setVelocity( makePoint(5, 5) );
 		// enemyBoard.velocity() = makePoint(5, 5); //Багает при этом значении
 		enemyBoard.setVelocity( makePoint(1, 1) );
-
 	};
 
 	void onRun(){
@@ -209,7 +207,7 @@ public:
 		//-------
 
 		//Menu
-		mainMenu.drawMenu();
+		//mainMenu.drawMenu();
 
 	}
 
@@ -225,6 +223,7 @@ int main(int argc, char **argv){
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
+	al_init_primitives_addon(); //Исправляет assertion 'addon_initialized' failed (segFail - который был в прошлом коммите)
 
 	Display display(SCREEN_W, SCREEN_H);
 	display.setWindowTitle("Ma Pong :-)");
@@ -239,20 +238,14 @@ int main(int argc, char **argv){
 	/*<< Mouse::getEventSource()*/ << display << timer << ues;
 	//--------------
 
-
 	mainScene myMainScene;
 	myMainScene.onInit();
-
-
 
 	// cout << ball.position.getX() << endl;
 	// cout << ball.position.getY() << endl;
 	
-// 
-
 	// float offset = 5.5;
 	// ALLEGRO_COLOR color_orange = al_map_rgb(255, 0, 0);
-
 
 	/*al_draw_rectangle(
 		offset, 
@@ -261,10 +254,6 @@ int main(int argc, char **argv){
 		width+offset, 
 		color_orange,
 		1 );*/
-
-
-
-
 
 	//ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	//event_queue = al_create_event_queue();
@@ -293,7 +282,6 @@ int main(int argc, char **argv){
 			redraw = false;
 		}
 
-
 		//wait for event
 		Event event = eventQueue.waitForEvent();
 
@@ -307,7 +295,6 @@ int main(int argc, char **argv){
 						case ALLEGRO_KEY_ESCAPE:
 								loop = false;
 							break;
-
 					}
 				break;
 
@@ -368,15 +355,10 @@ int main(int argc, char **argv){
  }
 
 
-
-
 	// al_flip_display(); //Отрисовка
 	
 	// al_rest(5.0); //Задержка в секундах
 	// al_destroy_display(display);
-
-
-
 
 	 return 0;
 }
