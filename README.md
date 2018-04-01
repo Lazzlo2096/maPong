@@ -5,25 +5,18 @@ Ping-pong игра на движке Allegro 5 с использованием [
 <br>Скоро ~~со вкусом банана~~ будет возможна игра по сети
 
 ![](maPong_screenshot.png)
-
-## Installation
-
+## Build
 ### Linux:
 ```sh
 sudo apt install liballegro5-dev
-git clone https://github.com/Lazzlo2096/maPong.git
-cd maPong
-git clone https://github.com/axilmar/ALX.git
+git clone https://github.com/Lazzlo2096/maPong.git --recurse-submodules --shallow-submodules
 make
 ```
-
 ### Windows:
 Для начала, вам нужно [отсюда](https://www.allegro.cc/files/?v=5.0) установить Allegro 5.0.10 в ваш MinGW. [(типа инструкция)](https://www.allegro.cc/forums/thread/611687)
 <br>Затем:
 ```sh
-git clone https://github.com/Lazzlo2096/maPong.git
-cd maPong
-git clone https://github.com/axilmar/ALX.git
+git clone https://github.com/Lazzlo2096/maPong.git --recurse-submodules --shallow-submodules
 make windows
 ```
 
