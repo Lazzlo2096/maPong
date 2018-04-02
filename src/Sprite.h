@@ -17,6 +17,8 @@ const int SCREEN_H = 480;
 
 extern int yourScore;
 extern int enemyScore;
+extern string yourScore_str;
+extern string enemyScore_str;
 
 class Sprite {
 
