@@ -113,11 +113,12 @@ void Board::move_up() {
 
 
 void Board::autoCatch(Point<int> point){
+// void Board::autoCatch(const Sprite& obj){
+
+	// Point<int> point = obj.getPosition();
 
 	if (position.getY() > point.getY())
 		move_up();
 	else if (position.getY() < point.getY())
 		move_down();
-
-
 }

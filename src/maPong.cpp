@@ -182,7 +182,7 @@ public:
 
 	~mainScene(){};
 
-	void onInit(){
+	void init(){
 
 		ball.setVelocity( makePoint(1, 1) );
 		myBoard.setVelocity( makePoint(5, 5) );
@@ -190,20 +190,32 @@ public:
 		enemyBoard.setVelocity( makePoint(1, 1) );
 	};
 
-	void onRun(){
+	void calcAndDrawFrame(){
+		//Что первее - отрисовка или логика?
+		//Думаю эти блоки можно разделить по методам??
 
+		//Как бы отрисовка игры
+		//Мб отрисовку игры можно типа объединить в один метод
+		//-------
 		drawPingPongBackground(font);
 
 		ball.draw();
 		myBoard.draw();
 		enemyBoard.draw();
+		//-------
 
+		//Как бы логика игры
 		//-------
 		ball.fly();
+		//реализовать - Если сталкиваються, то мячик отпрыгивает = скорость - растояние до обекта + оставшаяся скоость в новом направлении
 		ball.collision( myBoard );
 		ball.collision( enemyBoard );
+		//ball.collision( Borders );
 
-		enemyBoard.autoCatch( ball.getPosition() );
+		//Если может ловить только мои объекты(в частности мячи),
+		//то используя метод внути (а если он будет слидить и за бортиком то используй шаблон?полиморфизм?)
+		enemyBoard.autoCatch( ball.getPosition() ); //переименовать в follow()
+		// enemyBoard.follow( ball );
 		//-------
 
 		//Menu
@@ -211,6 +223,7 @@ public:
 
 	}
 
+	//зачем мне дополнительные методы ещё и для mainScene - можно убрать
 	void onKeyDown(){ myBoard.move_down(); }
 	void onKeyUp(){ myBoard.move_up(); }
 };
@@ -221,10 +234,11 @@ int main(int argc, char **argv){
 	al_install_keyboard();
 	
 	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+	al_init_ttf_addon(); // initialize the ttf (True Type Font) addon
 
-	al_init_primitives_addon(); //Исправляет assertion 'addon_initialized' failed (segFail - который был в прошлом коммите)
+	al_init_primitives_addon(); //Исправляет assertion 'addon_initialized' failed
 
+	//Мб начиная от сюдова всё запихнуть в объект сцены
 	Display display(SCREEN_W, SCREEN_H);
 	display.setWindowTitle("Ma Pong :-)");
 
@@ -239,7 +253,7 @@ int main(int argc, char **argv){
 	//--------------
 
 	mainScene myMainScene;
-	myMainScene.onInit();
+	myMainScene.init();
 
 	// cout << ball.position.getX() << endl;
 	// cout << ball.position.getY() << endl;
@@ -258,6 +272,7 @@ int main(int argc, char **argv){
 	//ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	//event_queue = al_create_event_queue();
  
+ 	//Запихнуть в метод run() сцены
 	//event loop
 	timer.start();
 	bool loop = true;
@@ -275,7 +290,7 @@ int main(int argc, char **argv){
 		// if( al_is_event_queue_empty(event_queue)) {
 		if (redraw && eventQueue.isEmpty()) {
 
-			myMainScene.onRun();
+			myMainScene.calcAndDrawFrame();
 
 			al_flip_display();
 
@@ -352,7 +367,7 @@ int main(int argc, char **argv){
 				break;
 
 		}//switch end
- }
+	}
 
 
 	// al_flip_display(); //Отрисовка
