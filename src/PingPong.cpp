@@ -37,7 +37,7 @@ void Ball::fly() {
 
 	if (position.getX() >= SCREEN_W-width/2){
 		position = makePoint(SCREEN_W/2, SCREEN_H/2);
-		evilScore++;
+		enemyScore++;
 	}
 
 	if (position.getX() <= 0+width/2){
@@ -113,11 +113,12 @@ void Board::move_up() {
 
 
 void Board::autoCatch(Point<int> point){
+// void Board::autoCatch(const Sprite& obj){
+
+	// Point<int> point = obj.getPosition();
 
 	if (position.getY() > point.getY())
 		move_up();
 	else if (position.getY() < point.getY())
 		move_down();
-
-
 }
