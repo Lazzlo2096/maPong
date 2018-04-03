@@ -124,7 +124,7 @@ public:
 			menu_color
 		);
 
-		ALLEGRO_FONT *font = al_load_ttf_font("./data/04B_03__.TTF",30,0 );
+		ALLEGRO_FONT *font = al_load_ttf_font("./data/04B_03__.TTF", 30, 0);
 
 		for(int i=0; i!=menuItemsNum; i++ ){
 			// cout << i << endl;
@@ -233,29 +233,26 @@ public:
 
 int main(int argc, char **argv){
 
-	struct EnpPoint ep = parseArgs(argc, argv);
+	struct EnpPoint ep = parseArgs(argc, argv); //парсим аргументы //надобы завести пространство имён (непонятно откуда эта функция)
 
-	if (ep.port != 0)
-	{
-		//Значит работает как сервер или клиент, а не как одиночная игра
+	//проверка на режим игры
+	if (ep.port != 0){
+		//Значит работает как сервер или клиент, а не как одиночная игра с компьютером
 
-		if (ep.address == "")
-		{
+		if (ep.address == ""){
 			//Значит работает как сервер
 			cout << "=> Runing as server at port " << ep.port << endl;
-			static Server server(ep.port);
+			static Server server(ep.port); // Может не static а просто вынести из скобок или как?
 
 			server.connect();
-		}
-		else
+		} else
 		{
 			//Значит работает как клиент
 			cout << "=> Runing as client at address "<< ep.address << " and port " << ep.port << endl;
-			static Client client(ep.address, ep.port);
+			static Client client(ep.address, ep.port); // Может не static а просто вынести из скобок или как?
 
 			client.connect();
 		}
-
 	}
 	
 	al_init();
