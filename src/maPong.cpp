@@ -15,6 +15,8 @@ using namespace alx;
 
 int yourScore = 0;
 int enemyScore = 0;
+string yourScore_str = to_string(yourScore);
+string enemyScore_str = to_string(enemyScore);
 
 const float FPS = 60;
 // const int BOUNCER_SIZE = 32;
@@ -37,7 +39,8 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 		SCREEN_W/2 + interval,
 		0+indentation,
 		ALLEGRO_ALIGN_CENTRE,
-		to_string(yourScore).c_str()
+		//to_string(yourScore).c_str()
+		yourScore_str.c_str()
 	);
 
 	al_draw_text(
@@ -46,7 +49,8 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 		SCREEN_W/2 - interval,
 		0+indentation,
 		ALLEGRO_ALIGN_CENTRE,
-		to_string(enemyScore).c_str()
+		//to_string(enemyScore).c_str()
+		enemyScore_str.c_str()
 	);
 
 	// al_draw_text(font, al_map_rgb(255,255,255), 640/2, (480/4),
@@ -161,7 +165,7 @@ class mainScene{
 
 	ALLEGRO_FONT *font;
 
-	Menu mainMenu;
+	//Menu mainMenu;
 
 public:
 
