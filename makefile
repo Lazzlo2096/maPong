@@ -1,6 +1,6 @@
 .PTHONY: all linux windows windows4profiling run clean
 
-CFLAGS=-I./ALX/include/
+CFLAGS=-I./ALX/include/ #INCLUDES ?
 CFLAGS2=-c -Wall
 
 CPPFLAGS=-std=c++11
@@ -34,7 +34,7 @@ run:
 clean:
 	rm ./$(EXECUTABLE)
 
-
+#http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 #IDIR =../include
 #_DEPS = hellomake.h
 #DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))

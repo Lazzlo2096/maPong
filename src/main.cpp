@@ -11,7 +11,7 @@
 #include "PingPongItems.h"
 
 using namespace std;
-using namespace alx;
+//using namespace alx;
 
 int yourScore = 0;
 int enemyScore = 0;
