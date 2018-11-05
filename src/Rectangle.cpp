@@ -6,8 +6,8 @@ Rectangle::Rectangle(const Point<int> &pos, int _width, int _hight):
 // Rectangle::~Rectangle(){};
 
 
-void Rectangle::draw() {
-
+void Rectangle::draw()
+{
 	Point<int> _position = position - makePoint(width/2, hight/2);
 	// Point<int> _position = position ;
 

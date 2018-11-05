@@ -1,4 +1,4 @@
-#include "PingPong.h"
+#include "PingPongItems.h"
 
 
 // Ball();
@@ -10,7 +10,8 @@ Ball::Ball(Point<int> pos, int _width, int _hight)
 /*Ball::Ball(int pos_x, int pos_y, int _width, int _hight) 
 	: Rectangle(Point<int>(pos_x, pos_y), _width, _hight) {} ;
 */
-void Ball::setRandomColor(){
+void Ball::setRandomColor()
+{
 
 	int i = color;
 	setRectangle_color( al_map_rgb((i%3==0?255:0), (i%3==1?255:0), (i%3==2?255:0)) );
@@ -19,9 +20,8 @@ void Ball::setRandomColor(){
 
 }
 
-
-
-void Ball::fly() {
+void Ball::fly()
+{
 /*
 Проверка на столкновение с краями идеёт после прибавления к координатам скорости.
 Это может вызвать глюк, когда отталкивание
@@ -53,8 +53,9 @@ void Ball::fly() {
 
 //check collision between two sprites
 // bool collision(const Sprite& obj) {
-void Ball::collision(const Sprite& obj) {
-	
+void Ball::collision(const Sprite& obj)
+{
+
 	// if( getRect().intersects(obj.getRect()) ){
 	if( abs(position.getX()-obj.getPosition().getX()) == width/2+obj.getWidth()/2 and
 		(abs(position.getY()-obj.getPosition().getY()) < hight/2+obj.getHight()/2 ) )
@@ -73,20 +74,17 @@ void Ball::collision(const Sprite& obj) {
 
 }
 
-
 //------------------------------
 
 Board::~Board(){};
 
 Board::Board(const Point<int> &pos, int _width, int _hight) 
-	: Rectangle(pos, _width, _hight) {
+	: Rectangle(pos, _width, _hight)
+{
 }
 
-
-
-
-void Board::move_down() {
-
+void Board::move_down()
+{
 	//проверка на столкновение с краями
 	// if (position.getX() >= SCREEN_W or position.getX() <=0)
 		// velocity.setX( -velocity.getX() );
@@ -99,8 +97,8 @@ void Board::move_down() {
 		position.setY( SCREEN_H-hight/2 );
 }
 
-void Board::move_up() {
-
+void Board::move_up()
+{
 	//проверка на столкновение с краями
 	// if (position.getX() >= SCREEN_W or position.getX() <=0)
 		// velocity.setX( -velocity.getX() );
@@ -113,8 +111,8 @@ void Board::move_up() {
 }
 
 
-
-void Board::autoCatch(Point<int> point){
+void Board::autoCatch(Point<int> point)
+{
 // void Board::autoCatch(const Sprite& obj){
 
 	// Point<int> point = obj.getPosition();

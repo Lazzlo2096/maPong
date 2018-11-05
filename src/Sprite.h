@@ -20,22 +20,29 @@ extern int enemyScore;
 extern string yourScore_str;
 extern string enemyScore_str;
 
-class Sprite {
-
+class Sprite
+{
 protected:
 
 	int width;
-	int hight;
+	int hight; //to Point?
+	// а что если я хочу чтобы качание осязалось как круг?
 
 	Point<int> position;
-
 	Point<int> velocity;
 
 public:
 
 	Sprite(const Point<int> &pos, int _width, int _hight);
-	//Sprite(const Point<int> &pos) : position(pos) {
-	//}
+
+	//Sprite(const Point<int> &pos) : position(pos) {}
+
+	/*
+	Sprite(const Point<int> &pos, const Bitmap &bmp) :
+		position(pos),
+		bitmap(bmp) 
+	{}
+	*/
 
 	virtual ~Sprite();
 
@@ -49,22 +56,15 @@ public:
 	int getHight() const;
 	int getWidth() const;
 
-	/*Sprite(const Point<int> &pos, const Bitmap &bmp) 
-		: position(pos), bitmap(bmp) {
-	}
-
-	//draws the bitmap
-	void draw() const {
-			bitmap.draw(position.getX(), position.getY());
-	}
-*/
-
-	//get rect
 	Rect<int> getRect() const;
 
 	virtual void draw() = 0;
+	/*
+	//draws the bitmap
+	void draw() const {
+			bitmap.draw(position.getX(), position.getY());
+	};
+	*/
 
-	// hitTest(const Sprite& sprite){ // getRect() ?? 
-	// }
-	
+	// hitTest(const Sprite& sprite){}; // getRect() ??
 };

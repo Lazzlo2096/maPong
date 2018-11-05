@@ -2,19 +2,16 @@
 
 #include <iostream>
 #include <string>
-#include <allegro5/allegro.h>
 
+#include <allegro5/allegro.h>
 // #include <allegro5/allegro_font.h>
 // #include <allegro5/allegro_ttf.h>
 
-#include "Rectangle.h"
-
 #include "alx.hpp"
+#include "Rectangle.h"
 
 using namespace std;
 using namespace alx;
-
-
 
 
 class Ball : public Rectangle
@@ -22,7 +19,6 @@ class Ball : public Rectangle
 	int color = 0;
 
 public:
-
 
 	// Ball();
 	~Ball();

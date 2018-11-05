@@ -8,7 +8,7 @@
 #include "alx.hpp"
 
 // #include "Sprite.h"
-#include "PingPong.h"
+#include "PingPongItems.h"
 
 using namespace std;
 using namespace alx;
@@ -232,8 +232,8 @@ public:
 	void onKeyUp(){ myBoard.move_up(); }
 };
 
-int main(int argc, char **argv){
-
+int main(int argc, char **argv)
+{
 	al_init();
 	al_install_keyboard();
 	
@@ -379,5 +379,5 @@ int main(int argc, char **argv){
 	// al_rest(5.0); //Задержка в секундах
 	// al_destroy_display(display);
 
-	 return 0;
+	return 0;
 }

@@ -1,5 +1,6 @@
 #include "Sprite.h"
 
+
 Sprite::Sprite(const Point<int> &pos, int _width, int _hight) : 
 	position(pos), width(_width), hight(_hight) {}
 
@@ -32,7 +33,8 @@ void draw() const {
 */
 
 //get rect
-Rect<int> Sprite::getRect() const {
+Rect<int> Sprite::getRect() const 
+{
 
 	Point<int> _position = - makePoint(width/2, hight/2) + position;
 	return Rect<int>(_position, makeSize(width, hight));
