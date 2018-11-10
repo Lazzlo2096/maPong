@@ -1,6 +1,6 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(const Point<int> &pos, int _width, int _hight):
+Rectangle::Rectangle(const alx::Point<int> &pos, int _width, int _hight):
 		Sprite(pos, _width, _hight){};
 
 // Rectangle::~Rectangle(){};
@@ -8,7 +8,7 @@ Rectangle::Rectangle(const Point<int> &pos, int _width, int _hight):
 
 void Rectangle::draw()
 {
-	Point<int> _position = position - makePoint(width/2, hight/2);
+	alx::Point<int> _position = position - alx::makePoint(width/2, hight/2);
 	// Point<int> _position = position ;
 
 	// al_draw_rectangle(

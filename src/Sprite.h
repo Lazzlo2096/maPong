@@ -10,7 +10,7 @@
 #include "alx.hpp"
 
 using namespace std;
-using namespace alx;
+//using namespace alx;
 
 const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
@@ -28,12 +28,12 @@ protected:
 	int hight; //to Point?
 	// а что если я хочу чтобы качание осязалось как круг?
 
-	Point<int> position;
-	Point<int> velocity;
+	alx::Point<int> position;
+	alx::Point<int> velocity;
 
 public:
 
-	Sprite(const Point<int> &pos, int _width, int _hight);
+	Sprite(const alx::Point<int> &pos, int _width, int _hight);
 
 	//Sprite(const Point<int> &pos) : position(pos) {}
 
@@ -46,17 +46,17 @@ public:
 
 	virtual ~Sprite();
 
-	Point<int> getPosition() const;/*const метод т.к.
+	alx::Point<int> getPosition() const;/*const метод т.к.
 	юзаеться в конст obj в методе Ball::colision*/
 	//void setPosition(Point<int> _position){ position = _position; }
 
 	//Point<int> getVelocity(){ return velocity; }
-	void setVelocity(Point<int> _velocity);
+	void setVelocity(alx::Point<int> _velocity);
 
 	int getHight() const;
 	int getWidth() const;
 
-	Rect<int> getRect() const;
+	alx::Rect<int> getRect() const;
 
 	virtual void draw() = 0;
 	/*

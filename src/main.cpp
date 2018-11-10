@@ -78,7 +78,7 @@ class Menu
 	const int MENU_ITEM_HEIGHT = 40;
 	const int MENU_PADDING = 10;
 
-	Point<int> menuPlace;
+	alx::Point<int> menuPlace;
 
 	vector<string> menu_items;
 
@@ -92,7 +92,7 @@ public:
 
 		menuItemsNum = menu_items.size(); // size() трудоёмкий метод
 
-		menuPlace = makePoint(
+		menuPlace = alx::makePoint(
 				SCREEN_W/2-MENU_WIDTH/2,
 				SCREEN_H/2-(MENU_PADDING+(MENU_ITEM_HEIGHT)*menuItemsNum)
 			);
@@ -157,7 +157,7 @@ class mainScene{
 	Ball ball;
 	// ball.sprite_color = al_map_rgb(255, 0, 0);
 
-	/*Board myBoard( makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
+	/*Board myBoard( alx::makePoint( SCREEN_W-75-25/2 , SCREEN_H/2-150/2), 25,
 	 150 );*/
 	Board myBoard;
 
@@ -170,9 +170,9 @@ class mainScene{
 public:
 
 	mainScene():
-		ball( makePoint(SCREEN_W/2, SCREEN_H/2), 25, 25 ),
-		myBoard( makePoint( SCREEN_W-75 , SCREEN_H/2), board_height, board_width ),
-		enemyBoard( makePoint( 75 , SCREEN_H/2), board_height, board_width )	
+		ball( alx::makePoint(SCREEN_W/2, SCREEN_H/2), 25, 25 ),
+		myBoard( alx::makePoint( SCREEN_W-75 , SCREEN_H/2), board_height, board_width ),
+		enemyBoard( alx::makePoint( 75 , SCREEN_H/2), board_height, board_width )	
 	{
 
 		// font = al_load_ttf_font("Smirnof.ttf",72,0 );
@@ -188,10 +188,10 @@ public:
 
 	void init(){
 
-		ball.setVelocity( makePoint(1, 1) );
-		myBoard.setVelocity( makePoint(5, 5) );
+		ball.setVelocity( alx::makePoint(1, 1) );
+		myBoard.setVelocity( alx::makePoint(5, 5) );
 		// enemyBoard.velocity() = makePoint(5, 5); //Багает при этом значении
-		enemyBoard.setVelocity( makePoint(1, 1) );
+		enemyBoard.setVelocity( alx::makePoint(1, 1) );
 	};
 
 	void calcAndDrawFrame(){
@@ -243,16 +243,16 @@ int main(int argc, char **argv)
 	al_init_primitives_addon(); //Исправляет assertion 'addon_initialized' failed
 
 	//Мб начиная от сюдова всё запихнуть в объект сцены
-	Display display(SCREEN_W, SCREEN_H);
+	alx::Display display(SCREEN_W, SCREEN_H);
 	display.setWindowTitle("Ma Pong :-)");
 
 	//--------------
-	EventQueue eventQueue;
-	Timer timer(1./FPS);
-	UserEventSource ues;
+	alx::EventQueue eventQueue;
+	alx::Timer timer(1./FPS);
+	alx::UserEventSource ues;
 
 	//bind the resources to the event queue
-	eventQueue << Keyboard::getEventSource() 
+	eventQueue << alx::Keyboard::getEventSource() 
 	/*<< Mouse::getEventSource()*/ << display << timer << ues;
 	//--------------
 
@@ -302,7 +302,7 @@ int main(int argc, char **argv)
 		}
 
 		//wait for event
-		Event event = eventQueue.waitForEvent();
+		alx::Event event = eventQueue.waitForEvent();
 
 		//process event
 		switch (event.getType()) {

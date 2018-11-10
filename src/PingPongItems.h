@@ -11,7 +11,7 @@
 #include "Rectangle.h"
 
 using namespace std;
-using namespace alx;
+//using namespace alx;
 
 
 class Ball : public Rectangle
@@ -23,7 +23,7 @@ public:
 	// Ball();
 	~Ball();
 
-	Ball(Point<int> pos, int _width, int _hight);
+	Ball(alx::Point<int> pos, int _width, int _hight);
 	// Ball(int pos_x, int pos_y, int _width, int _hight);
 
 	void setRandomColor();
@@ -50,12 +50,12 @@ public:
 	// Board();
 	~Board();
 
-	Board(const Point<int> &pos, int _width, int _hight);
+	Board(const alx::Point<int> &pos, int _width, int _hight);
 
 	void move_down();
 
 	void move_up();
 
-	void autoCatch(Point<int> point);
+	void autoCatch(alx::Point<int> point);
 		
 };

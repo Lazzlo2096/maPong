@@ -4,11 +4,11 @@
 // Ball();
 Ball::~Ball(){};
 
-Ball::Ball(Point<int> pos, int _width, int _hight) 
+Ball::Ball(alx::Point<int> pos, int _width, int _hight) 
 	: Rectangle(pos, _width, _hight) {} ;
 
 /*Ball::Ball(int pos_x, int pos_y, int _width, int _hight) 
-	: Rectangle(Point<int>(pos_x, pos_y), _width, _hight) {} ;
+	: Rectangle(alx::Point<int>(pos_x, pos_y), _width, _hight) {} ;
 */
 void Ball::setRandomColor()
 {
@@ -36,13 +36,13 @@ void Ball::fly()
 		velocity.setY( -velocity.getY() );
 
 	if (position.getX() >= SCREEN_W-width/2){
-		position = makePoint(SCREEN_W/2, SCREEN_H/2);
+		position = alx::makePoint(SCREEN_W/2, SCREEN_H/2);
 		enemyScore++;
 		enemyScore_str = to_string(enemyScore);
 	}
 
 	if (position.getX() <= 0+width/2){
-		position = makePoint(SCREEN_W/2, SCREEN_H/2);
+		position = alx::makePoint(SCREEN_W/2, SCREEN_H/2);
 		yourScore++;
 		yourScore_str = to_string(yourScore);
 	}
@@ -78,7 +78,7 @@ void Ball::collision(const Sprite& obj)
 
 Board::~Board(){};
 
-Board::Board(const Point<int> &pos, int _width, int _hight) 
+Board::Board(const alx::Point<int> &pos, int _width, int _hight) 
 	: Rectangle(pos, _width, _hight)
 {
 }
@@ -111,11 +111,11 @@ void Board::move_up()
 }
 
 
-void Board::autoCatch(Point<int> point)
+void Board::autoCatch(alx::Point<int> point)
 {
 // void Board::autoCatch(const Sprite& obj){
 
-	// Point<int> point = obj.getPosition();
+	// alx::Point<int> point = obj.getPosition();
 
 	if (position.getY() > point.getY())
 		move_up();

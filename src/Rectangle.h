@@ -11,7 +11,7 @@
 #include "Sprite.h"
 
 using namespace std;
-using namespace alx;
+//using namespace alx;
 
 
 class Rectangle: public Sprite
@@ -22,7 +22,7 @@ protected:
 
 public:
 
-	Rectangle(const Point<int> &pos, int _width, int _hight);
+	Rectangle(const alx::Point<int> &pos, int _width, int _hight);
 	
 	// ~Rectangle(); //? on and virt?
 
