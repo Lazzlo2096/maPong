@@ -1,5 +1,7 @@
 #include "Sprite.h"
 
+namespace maPong{
+
 
 Sprite::Sprite(const alx::Point<int> &pos, int _width, int _hight) : 
 	position(pos), width(_width), hight(_hight) {}
@@ -56,3 +58,5 @@ void Sprite::draw() {
 
 }
 */
+
+}//namespace maPong

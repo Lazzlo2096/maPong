@@ -1,5 +1,7 @@
 #include "PingPongItems.h"
 
+namespace maPong{
+
 
 // Ball();
 Ball::~Ball(){};
@@ -122,3 +124,5 @@ void Board::autoCatch(alx::Point<int> point)
 	else if (position.getY() < point.getY())
 		move_down();
 }
+
+}//namespace maPong

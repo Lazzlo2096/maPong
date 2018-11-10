@@ -1,5 +1,8 @@
 #include "Rectangle.h"
 
+namespace maPong{
+
+
 Rectangle::Rectangle(const alx::Point<int> &pos, int _width, int _hight):
 		Sprite(pos, _width, _hight){};
 
@@ -25,3 +28,5 @@ void Rectangle::draw()
 
 void Rectangle::setRectangle_color(ALLEGRO_COLOR _rectangle_color)
 	{ rectangle_color = _rectangle_color; }
+
+}//namespace maPong

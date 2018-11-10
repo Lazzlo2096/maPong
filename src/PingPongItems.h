@@ -13,6 +13,8 @@
 using namespace std;
 //using namespace alx;
 
+namespace maPong{
+
 
 class Ball : public Rectangle
 {
@@ -59,3 +61,5 @@ public:
 	void autoCatch(alx::Point<int> point);
 		
 };
+
+}//namespace maPong

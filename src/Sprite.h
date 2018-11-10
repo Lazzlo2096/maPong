@@ -1,24 +1,23 @@
 #pragma once
 
-#include <iostream>
+//#include <iostream>
 #include <string>
-#include <allegro5/allegro.h>
 
+#include <allegro5/allegro.h>
 // #include <allegro5/allegro_font.h>
 // #include <allegro5/allegro_ttf.h>
 
 #include "alx.hpp"
-
-using namespace std;
-//using namespace alx;
 
 const int SCREEN_W = 640*1.25;
 const int SCREEN_H = 480;
 
 extern int yourScore;
 extern int enemyScore;
-extern string yourScore_str;
-extern string enemyScore_str;
+extern std::string yourScore_str;
+extern std::string enemyScore_str;
+
+namespace maPong{
 
 class Sprite
 {
@@ -68,3 +67,5 @@ public:
 
 	// hitTest(const Sprite& sprite){}; // getRect() ??
 };
+
+}//namespace maPong

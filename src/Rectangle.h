@@ -1,7 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <string>
+//#include <iostream>
+//#include <string>
 
 #include <allegro5/allegro.h>
 // #include <allegro5/allegro_font.h>
@@ -10,8 +10,10 @@
 #include "alx.hpp"
 #include "Sprite.h"
 
-using namespace std;
+//using namespace std;
 //using namespace alx;
+
+namespace maPong{
 
 
 class Rectangle: public Sprite
@@ -32,3 +34,5 @@ public:
 	void draw();
 
 };
+
+}//namespace maPong
