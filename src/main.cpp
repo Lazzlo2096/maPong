@@ -23,7 +23,25 @@ string enemyScore_str = to_string(enemyScore);
 const float FPS = 60;
 // const int BOUNCER_SIZE = 32;
 
-void initGame()
+class MyGame
+{
+
+	alx::Timer timer;
+	alx::EventQueue eventQueue;
+
+	mainScene myMainScene;
+
+public:
+	MyGame() :
+		timer(1./FPS)
+	{};
+	
+	~MyGame(){};
+	
+
+
+
+void init()
 {
 	al_init();
 	al_install_keyboard();
@@ -38,8 +56,8 @@ void initGame()
 	display.setWindowTitle("Ma Pong :-)");
 
 	//--------------
-	alx::EventQueue eventQueue;
-	alx::Timer timer(1./FPS);
+	
+	//alx::Timer timer(1./FPS);
 	alx::UserEventSource ues;
 
 	//bind the resources to the event queue
@@ -47,7 +65,7 @@ void initGame()
 	/*<< Mouse::getEventSource()*/ << display << timer << ues;
 	//--------------
 
-	mainScene myMainScene;
+	
 	myMainScene.init();
 
 	/*
@@ -72,7 +90,10 @@ void initGame()
  	//Запихнуть в метод run() сцены
 	//event loop // event обработчик
 
-//} runGame(){
+}
+
+void run()
+{
 	
 	bool loop = true;
 	bool redraw = false;
@@ -177,13 +198,16 @@ void initGame()
 
 }
 
+};
 
 
 int main(int argc, char **argv)
 {
-	initGame();
+	MyGame maPong;
 
-	//runGame();
+	maPong.init();
+
+	maPong.run();
 
 	return 0;
 }
