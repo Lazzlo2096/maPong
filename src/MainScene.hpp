@@ -9,7 +9,7 @@ void drawPingPongBackground(ALLEGRO_FONT *font){
 
 	// Color background_color(40,40,40);
 	// al_clear_to_color( background_color );
-	al_clear_to_color( al_map_rgb(40,40,40) ); //заливка фона в цвет RGB
+	al_clear_to_color( al_map_rgb(40,40,40) ); //заливка фона в цвет RGB //баг сука!
 
 	int interval = 50;
 	int indentation = 10;
