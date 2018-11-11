@@ -10,6 +10,7 @@ Ping-pong игра на движке Allegro 5 с использованием [
 ```sh
 sudo apt install liballegro5-dev
 git clone https://github.com/Lazzlo2096/maPong.git --recurse-submodules --shallow-submodules
+cd ./maPong/
 make
 ```
 ### Windows:

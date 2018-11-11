@@ -2,19 +2,18 @@
 
 #include <iostream>
 #include <string>
-#include <allegro5/allegro.h>
 
+#include <allegro5/allegro.h>
 // #include <allegro5/allegro_font.h>
 // #include <allegro5/allegro_ttf.h>
 
+#include "alx.hpp"
 #include "Rectangle.h"
 
-#include "alx.hpp"
-
 using namespace std;
-using namespace alx;
+//using namespace alx;
 
-
+namespace maPong{
 
 
 class Ball : public Rectangle
@@ -23,11 +22,10 @@ class Ball : public Rectangle
 
 public:
 
-
 	// Ball();
 	~Ball();
 
-	Ball(Point<int> pos, int _width, int _hight);
+	Ball(alx::Point<int> pos, int _width, int _hight);
 	// Ball(int pos_x, int pos_y, int _width, int _hight);
 
 	void setRandomColor();
@@ -54,12 +52,14 @@ public:
 	// Board();
 	~Board();
 
-	Board(const Point<int> &pos, int _width, int _hight);
+	Board(const alx::Point<int> &pos, int _width, int _hight);
 
 	void move_down();
 
 	void move_up();
 
-	void autoCatch(Point<int> point);
+	void autoCatch(alx::Point<int> point);
 		
 };
+
+}//namespace maPong
