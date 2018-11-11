@@ -19,7 +19,7 @@ all: linux
 linux: $(EXECUTABLE)
 
 $(EXECUTABLE): $(SOURCES)
-	g++ $(CFLAGS) $(SOURCES) $(LIBS) $(CPPFLAGS) -o $(EXECUTABLE)
+	g++ $(CFLAGS) $(SOURCES) $(LIBS) $(CPPFLAGS) -g -o $(EXECUTABLE)
 		#-lallegro_image -lallegro_dialog
 
 windows: $(SOURCES)
