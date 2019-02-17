@@ -9,8 +9,9 @@ Ping-pong игра на движке Allegro 5 с использованием [
 
 ### Also you need:
 boost/program_options
-
+```sh
 sudo apt-get install libboost-all-dev # apt search boost # https://stackoverflow.com/a/12578564
+```
 
 ### Linux:
 ```sh
