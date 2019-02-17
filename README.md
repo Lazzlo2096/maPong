@@ -6,6 +6,12 @@ Ping-pong игра на движке Allegro 5 с использованием [
 
 ![](maPong_screenshot.png)
 ## Build
+
+### Also you need:
+boost/program_options
+
+sudo apt-get install libboost-all-dev # apt search boost # https://stackoverflow.com/a/12578564
+
 ### Linux:
 ```sh
 sudo apt install liballegro5-dev

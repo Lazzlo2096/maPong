@@ -2,15 +2,15 @@
 
 #include "MainScene.hpp"
 
-
+/* // if def with_server
 #include "./server/helpPage.h" //struct EnpPoint, parseArgs()
 #include "./server/server.h"
 #include "./server/client.h"
-
+*/
 
 int main(int argc, char **argv)
 {
-
+/* // if def with_server
 	struct EnpPoint ep = parseArgs(argc, argv); //парсим аргументы //надобы завести пространство имён (непонятно откуда эта функция)
 
 	//проверка на режим игры
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 			client.connect();
 		}
 	}
-
+*/
 
 	allegro_init();
 

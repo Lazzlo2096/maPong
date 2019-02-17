@@ -22,6 +22,9 @@ $(EXECUTABLE): $(SOURCES)
 	g++ $(CFLAGS) $(SOURCES) $(LIBS) $(CPPFLAGS) -g -o $(EXECUTABLE)
 		#-lallegro_image -lallegro_dialog
 
+qwerty:
+	g++ -I./ALX/include/ ./src/main.cpp ./src/server/server.cpp ./src/server/client.cpp  ./src/Sprite.cpp ./src/PingPongItems.cpp ./src/Rectangle.cpp -pthread -lboost_system -lboost_program_options -lallegro -lallegro_primitives -lallegro_font -lallegro_ttf -std=c++11 -g -o maPong
+
 windows: $(SOURCES)
 	g++ $(CFLAGS) $(SOURCES) $(LIBS_WIN) $(CPPFLAGS) -o $(EXECUTABLE)
 
