@@ -5,32 +5,37 @@ Ping-pong игра на движке Allegro 5 с использованием [
 <br>Скоро ~~со вкусом банана~~ будет возможна игра по сети
 
 ![](maPong_screenshot.png)
-## Build
-
-### Also you need:
-boost/program_options
+# Build
 ```sh
-sudo apt-get install libboost-all-dev # apt search boost # https://stackoverflow.com/a/12578564
-```
-
-### Linux:
-```sh
-sudo apt install liballegro5-dev
 git clone https://github.com/Lazzlo2096/maPong.git --recurse-submodules --shallow-submodules
 cd ./maPong/
+```
+Далее в зависимости от системы...
+## Linux:
+### Before, you need:
+some boost's libs:
+```sh
+ sudo apt install libasio-dev libboost-system-dev libboost-program-options-dev #sudo apt-get install libboost-all-dev # apt search boost # https://stackoverflow.com/a/12578564
+```
+and Allegro's libs:
+```sh
+sudo apt install liballegro5-dev # https://packages.ubuntu.com/en/cosmic/liballegro5-dev
+```
+### Затем, просто:
+```sh
 make
 ```
-### Windows:
+## Windows:
+### Before, you need:
 Для начала, вам нужно [отсюда](https://www.allegro.cc/files/?v=5.0) установить Allegro 5.0.10 в ваш MinGW. [(типа инструкция)](https://www.allegro.cc/forums/thread/611687)
-<br>Затем:
+### Затем, просто:
 ```sh
-git clone https://github.com/Lazzlo2096/maPong.git --recurse-submodules --shallow-submodules
 make windows
 ```
 
 ## Дополнительные материалы
 
-Шрифт ``04B_03__.TTF`` был скачан [отсюда](http://dsg4.com/04/extra/bitmap/)
+Шрифт ``04B_03__.TTF`` для ведения счёта был взят [отсюда](http://dsg4.com/04/extra/bitmap/)
 
 ## Release History
 
@@ -43,7 +48,7 @@ make windows
     * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!) -->
 * 0.1.1
     * Теперь собирается на Windows
-    * FIX: забыл добавить al_init_primitives_addon() (до этого почему-то работало 😅)
+    * FIX: забыл добавить ``al_init_primitives_addon()`` (до этого почему-то работало 😅)
 * 0.1.0
     * Первый годный релиз
     * Реализован основной функционал игры

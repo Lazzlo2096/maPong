@@ -1,5 +1,7 @@
 .PTHONY: all linux windows windows4profiling run clean linux_old
 
+IS_DEBUG= # -g
+
 CFLAGS=-I./ALX/include/ #INCLUDES ?
 CFLAGS2=-c -Wall
 
@@ -25,33 +27,33 @@ ${OUT_DIR}:
 	${MKDIR_P} ${OUT_DIR}
 
 linux: ${OUT_DIR} ./bin/main.o ./bin/server.o ./bin/client.o ./bin/Sprite.o ./bin/PingPongItems.o ./bin/Rectangle.o 
-	g++ ./bin/main.o ./bin/server.o ./bin/client.o ./bin/Sprite.o ./bin/PingPongItems.o ./bin/Rectangle.o $(BOOST_LIBS) $(ALLEGRO_LIBS) -std=c++11 -g -o ./bin/maPong
+	g++ ./bin/main.o ./bin/server.o ./bin/client.o ./bin/Sprite.o ./bin/PingPongItems.o ./bin/Rectangle.o $(BOOST_LIBS) $(ALLEGRO_LIBS) -std=c++11 $(IS_DEBUG) -o ./bin/maPong
 ./bin/server.o: ./src/server/server.cpp 
-	g++ ./src/server/server.cpp -pthread -std=c++11 -g -c -o ./bin/server.o
+	g++ ./src/server/server.cpp -pthread -std=c++11 $(IS_DEBUG) -c -o ./bin/server.o
 ./bin/client.o: ./src/server/client.cpp
-	g++ ./src/server/client.cpp -std=c++11 -g -c -o ./bin/client.o
+	g++ ./src/server/client.cpp -std=c++11 $(IS_DEBUG) -c -o ./bin/client.o
 ./bin/Sprite.o: ./src/Sprite.cpp
-	g++ -I./ALX/include/ ./src/Sprite.cpp -std=c++11 -g -c -o ./bin/Sprite.o
+	g++ -I./ALX/include/ ./src/Sprite.cpp -std=c++11 $(IS_DEBUG) -c -o ./bin/Sprite.o
 ./bin/PingPongItems.o: ./src/PingPongItems.cpp
-	g++ -I./ALX/include/ ./src/PingPongItems.cpp -std=c++11 -g -c -o ./bin/PingPongItems.o
+	g++ -I./ALX/include/ ./src/PingPongItems.cpp -std=c++11 $(IS_DEBUG) -c -o ./bin/PingPongItems.o
 ./bin/Rectangle.o: ./src/Rectangle.cpp
-	g++ -I./ALX/include/ ./src/Rectangle.cpp -std=c++11 -g -c -o ./bin/Rectangle.o
+	g++ -I./ALX/include/ ./src/Rectangle.cpp -std=c++11 $(IS_DEBUG) -c -o ./bin/Rectangle.o
 ./bin/main.o: ./src/main.cpp
-	g++ -I./ALX/include/ ./src/main.cpp -std=c++11 -g -c -o ./bin/main.o
+	g++ -I./ALX/include/ ./src/main.cpp -std=c++11 $(IS_DEBUG) -c -o ./bin/main.o
 
 
 
 linux_old: $(EXECUTABLE)
 
 $(EXECUTABLE): $(SOURCES)
-	g++ $(CFLAGS) $(SOURCES) $(ALLEGRO_LIBS) $(CPPFLAGS) -g -o $(EXECUTABLE)
+	g++ $(CFLAGS) $(SOURCES) $(ALLEGRO_LIBS) $(CPPFLAGS) $(IS_DEBUG) -o $(EXECUTABLE)
 		#-lallegro_image -lallegro_dialog
 
 windows: $(SOURCES)
 	g++ $(CFLAGS) $(SOURCES) $(ALLEGRO_WIN_LIBS) $(CPPFLAGS) -o $(EXECUTABLE)
 
 windows4profiling: $(SOURCES)
-	g++ $(CFLAGS) $(SOURCES) $(ALLEGRO_WIN_LIBS) $(CPPFLAGS) -pg -o $(EXECUTABLE)
+	g++ $(CFLAGS) $(SOURCES) $(ALLEGRO_WIN_LIBS) $(CPPFLAGS) -p $(IS_DEBUG) -o $(EXECUTABLE)
 
 
 maPong_with_server_lin:
@@ -63,10 +65,10 @@ maPong_with_server_win:
 
 
 run:
-	./$(EXECUTABLE)
+	./bin/$(EXECUTABLE)
 
 clean:
-	rm ./$(EXECUTABLE)
+	rm ./bin/$(EXECUTABLE) ./bin/*.o
 
 #http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 #IDIR =../include
